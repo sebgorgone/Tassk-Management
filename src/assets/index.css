@@ -1,0 +1,22 @@
+@font-face {
+   font-family: 'fontHW';
+   src: url(../Architectsdaughter.ttf);
+}
+
+@font-face {
+   font-family: 'fontss';
+   src: url(../OSP-DIN.ttf);
+}
+
+ .headerBar {
+   display: flex;
+   justify-content: center;
+   overflow-x: hidden;
+   width: 100%;
+   height: .5em;
+   transition: 500ms;
+ }
+
+ .headerBar.headerBar:hover {
+   height: 3em;
+ }
