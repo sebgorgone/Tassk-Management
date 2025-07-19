@@ -1,17 +1,24 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './assets/index.css'
 import { pallette } from './assets/DefaultPallettes'
 
 function Shell() {
 
+  localStorage.clear()
+
   //state
-  const [count, setCount] = useState(0)
+  let local;
+  const [data, setData] = useState(localStorage.getItem('data'))
+  console.log('DATA VALUE: ', data)
+
+
+
+
+  //style
 
   let c = pallette[2];
 
   console.log(c)
-
-  //style
 
   const header = {
     fontFamily: "fontss",
@@ -22,6 +29,35 @@ function Shell() {
   const body = {
     fontFamily: "fontss"
   }
+
+  //use effect
+
+  useEffect (() => {
+    if (data === null) {
+      local = localStorage.getItem('data');
+      if (typeof local === 'string') {
+        setData(JSON.parse(local))
+      }
+    }
+    console.log('local: ', local)
+    if (!local && !data) {
+      console.log('useeffct 1')
+      import('./DefaultUser').then((data) => {
+        const defaults = JSON.stringify(data);
+        localStorage.setItem('data', JSON.stringify(data));
+        setData(JSON.stringify(data));
+        console.log('effect log: ', JSON.stringify(data));
+      })
+    }
+    if (typeof local === 'string') {
+      console.log('typeof === string')
+    }
+    if (typeof local === 'string' && data == null) {
+      setData(JSON.parse(local))
+    }
+  },[])
+
+ 
 
 
   return (
