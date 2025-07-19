@@ -10,13 +10,73 @@
 
  .headerBar {
    display: flex;
-   justify-content: center;
-   /* overflow-x: hidden; */
+   justify-content: space-between;
+   align-items: bottom;
+   overflow-x: hidden;
    width: 100%;
-   height: .9em;
-   transition: 500ms;
+   height: 1.75em;
+   transition: 400ms;
+   overflow-y:hidden;
  }
 
- .headerBar.headerBar:hover {
-   height: 3em;
+.headerBar:hover {
+   height: 7em;
+ }
+
+ .headerTitle {
+  font-size: 1em;
+  transition: 500ms;
+  padding-right: 1em;
+  align-self: center;
+ }
+
+ .headerBar:hover .headerTitle{
+  font-size: 2.5em;
+  padding-right: .25em;
+
+ }
+
+ .headerIcon {
+  aspect-ratio: 1.5 / 1;
+  padding-left: 0;
+  width: 5em;
+  margin: 0;
+  transition: margin 400ms ease, width 400ms ease;
+ }
+
+ .headerBar:hover .headerIcon {
+  width: 10em;
+  margin: 0;
+ }
+
+ .headerButton {
+  transition: font-size 300ms ease, opacity 300ms ease, transform 300ms ease;
+  font-size: 1em;
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  visibility: hidden;
+ }
+
+ .headerBar:hover .headerButton {
+  display: block;
+  font-size: 2em;
+  width: 1.7em;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  visibility: visible;
+ }
+
+ .headerButtonDiv {
+   width: 0;
+   opacity: 0;
+   overflow: hidden;
+   transition: all 800ms ease;
+ }
+
+ .headerBar:hover .headerButtonDiv {
+   width: auto;
+   opacity: 1;
+   margin-left: 1em;
  }
