@@ -80,3 +80,25 @@
    opacity: 1;
    margin-left: 1em;
  }
+
+ .taskGroupButton {
+  background: transparent;
+  transition: 300ms ease;
+ }
+
+ .taskGroupButton:hover {
+  background: #ffffff;
+  cursor: pointer;
+ }
+
+ .taskGroupOptions {
+  background: transparent;
+  transition: 400ms ease;
+ }
+
+ .taskGroupOptions:hover {
+  background: #ffffff;
+  cursor: pointer;
+ }
+
+

@@ -96,8 +96,8 @@ useEffect(() => {
       <div className="headerBar" style={header}>
         <img src='./vectorGraphics/ass.svg' className='headerIcon'/>
         <div style={{display: "flex", flexFlow: "column", alignItems: 'center', justifyContent: "center"}} className='headerButtonDiv'>
-          <p style={buttonTilte}>New Task Group</p>
-          <button style={button} className='headerButton' >＋</button>
+          <p style={buttonTilte} className='task'>New Task Group</p>
+          <button style={button}>＋</button>
         </div>
         <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>
       </div>
