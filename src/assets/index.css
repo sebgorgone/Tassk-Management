@@ -84,10 +84,12 @@
  .taskGroupButton {
   background: transparent;
   transition: 300ms ease;
+  clip-path: polygon(0 20%, 100% 20%, 100% 80%, 0% 80%);
+
  }
 
  .taskGroupButton:hover {
-  background: #ffffff;
+  background: rgba(255,255,255,.3);
   cursor: pointer;
  }
 
