@@ -12,7 +12,7 @@ function TaskGroup (props) {
                style={{margin: ".5em",padding: ".4em", fontFamily: 'fontHW', fontSize: '.7em', minWidth: "0", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark}}
             >ADD TASK </ button>
             <button style={{margin: "0", border: "none", borderRadius: "1.5em", paddingTop: ".3em", margin: ".5em"}} className='taskGroupOptions'><img src='./vectorGraphics/info-circle-fill-svgrepo-com.svg' style={{ width: "2.25em", aspectRatio: "1 / 1"}}/></button>
-            <button style={{margin: "0", background: "none", border: "none", borderRadius: "1.5em", paddingTop: ".3em", margin: ".5em"}}><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "2.25em", aspectRatio: "1 / 1"}} className='taskGroupOptions'/></button>
+            <button style={{margin: "0", border: "none", borderRadius: "1.5em", paddingTop: ".3em", margin: ".5em"}} className='taskGroupOptions' ><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "2.25em", aspectRatio: "1 / 1"}} /></button>
          </div>
          {/* <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden"}}>
             <input
