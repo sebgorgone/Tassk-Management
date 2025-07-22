@@ -13,7 +13,7 @@ function Shell() {
 
   //style
 
-  let c = pallette[2]
+  let c = pallette[1]
 
   const debug = false;
 
@@ -83,7 +83,7 @@ useEffect(() => {
   const openTGs = data.data.TGs
   .filter(task => data.data.defaults.openTGs.includes(task.taskGroupName))
   .map(task => (
-    <TaskGroup debug={debug} desc={task.desc} name={task.taskGroupName} tags={task.tags} createdAt={task.createdAt} tasks={task.tasks} key={task.taskGroupName} pallette={pallette[Math.floor(Math.random() * 3)]} icon={task.iconPath}/>
+    <TaskGroup debug={debug} desc={task.desc} name={task.taskGroupName} tags={task.tags} createdAt={task.createdAt} tasks={task.tasks} key={task.taskGroupName} pallette={pallette[Math.floor(Math.random() * 2)]} icon={task.iconPath}/>
   ));
   setTGs(openTGs)
 }
@@ -101,7 +101,7 @@ useEffect(() => {
         </div>
         <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>
       </div>
-      <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", justifyContent: "space-evenly", zIndex: "0"}}>
+      <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", zIndex: "0"}}>
         {TGs}
       </div>
      {debug && <p>

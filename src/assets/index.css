@@ -111,6 +111,16 @@
   clip-path: (0 0, 0 90%, 100% 90%, 100% 0);
  }
 
+ .taskOptions {
+  background: rgba(150,150,150,.3);
+  transition: 400ms ease;
+ }
+
+ .taskOptions:hover {
+  background: rgba(200,200,200,.5);
+  cursor: pointer;
+ }
+
 
 
 

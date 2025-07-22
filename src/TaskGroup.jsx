@@ -7,9 +7,9 @@ function TaskGroup (props) {
    //tasks lists 
 
    const tasks = props.tasks ? 
-      props.tasks.map((key => {
-         return (<div key={key} style={{border:`solid .3em ${props.pallette.altLight}`, borderRadius: ".5em", margin: "auto",marginTop: ".5em", padding: ".3em", width: "85%"}}>
-            <Task taskName={key.taskName} createdAt={key.createdAt} task={key.task} dueDate={key.dueDate} pallette={props.pallette}/>
+      props.tasks.map(((t, index) => {
+         return (<div key={index} style={{border:`solid .3em ${props.pallette.altLight}`, borderRadius: ".5em", margin: "auto",marginTop: ".5em", width: "85%"}}>
+            <Task index={index} taskName={t.taskName} createdAt={t.createdAt} task={t.task} dueDate={t.dueDate} pallette={props.pallette} length={props.tasks.length}/>
          </div>)
       }))  : 'loading'
 
@@ -18,7 +18,7 @@ function TaskGroup (props) {
 
 
    return (
-      <div style={{display: 'flex', flexDirection: 'column', flex: "1", minWidth: "0",maxWidth: "100%", overflowY: "scroll"}}>
+      <div style={{flexDirection: 'column', flex: "1", minWidth: "0",maxWidth: "100%", overflowY: "scroll"}}>
          <div style={{background: props.pallette.vibr, minWidth: "0",maxWidth: "100%", overflowX: "auto", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`, borderLeft: `${props.pallette.bright} solid`}}>
             {props.debug && <p>--TG NAME: {props.name}--description: {`${props.desc}`}--icon path: {props.icon} -- tags: {props.tags}--color: {props.pallette.vibr} --Created At: {props.createdAt}-- Tasks:⬇️⬇️⬇️<br /> {props.tasks.map(t => '---------------------------------------------------------------------------------------------------------------------TASK_NAME: \n' + t.taskName + ' ___CREATED_AT: ' + t.createdAt + '___TASK: ' + t.task + '___DUE_DATE: ' + t.dueDate)}</p>}
 
