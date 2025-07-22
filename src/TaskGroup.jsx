@@ -1,28 +1,64 @@
+import Task from "./assets/task"
 
 function TaskGroup (props) {
-   return (
-      <div style={{flex: "1", background: props.pallette.vibr, minWidth: "0",maxWidth: "100%", overflowX: "auto", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`}}>
-         {props.debug && <p>--TG NAME: {props.name}--description: {`${props.desc}`}--icon path: {props.icon} -- tags: {props.tags}--color: {props.pallette.vibr} --Created At: {props.createdAt}-- Tasks:⬇️⬇️⬇️<br /> {props.tasks.map(t => '---------------------------------------------------------------------------------------------------------------------TASK_NAME: \n' + t.taskName + ' ___CREATED_AT: ' + t.createdAt + '___TASK: ' + t.task + '___DUE_DATE: ' + t.dueDate)}</p>}
-         <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden", alignItems: "center", marginTop: ".75em", flexWrap: "nowrap"}}>
-            <img src={props.icon} style={{width: "4em", paddingTop: ".5em"}} />
-            <header style={{alignSelf: "center", color: props.pallette.light, fontSize: "1.75em", marginRight: ".5em"}}>{props.name}<button style={{background: "none", border: "none", color: props.pallette.light, fontSize: ".65em"}}></button></header>
-         </div>
-         <div style={{display: "flex", justifyContent: "right", width: "100%", overflow: "hidden"}}>
-            <button className='taskGroupButton'
-               style={{margin: ".5em",padding: ".4em", fontFamily: 'fontHW', fontSize: '.7em', minWidth: "0", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark}}
-            >ADD TASK </ button>
-            <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", margin: ".5em"}} className='taskGroupOptions'><img src='./vectorGraphics/info-circle-fill-svgrepo-com.svg' style={{ width: "2.25em", aspectRatio: "1 / 1"}}/></button>
-            <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", margin: ".5em"}} className='taskGroupOptions' ><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "2.25em", aspectRatio: "1 / 1"}} /></button>
-         </div>
-         {/* <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden"}}>
-            <input
-               style={{margin: ".5em", fontFamily: 'fontHW', fontSize: '.7em', flex: "1", minWidth: "0"}}
-               type='text'
-               placeholder='new task'
 
-            />
-            <button style={{margin: ".5em"}}>add</button>
-         </div> */}
+
+
+   //tasks lists 
+
+   const tasks = props.tasks ? 
+      props.tasks.map((key => {
+         return (<div key={key} style={{border:`solid .3em ${props.pallette.altLight}`, borderRadius: ".5em", margin: "auto",marginTop: ".5em", padding: ".3em", width: "85%"}}>
+            <Task taskName={key.taskName} createdAt={key.createdAt} task={key.task} dueDate={key.dueDate} pallette={props.pallette}/>
+         </div>)
+      }))  : 'loading'
+
+
+
+
+
+   return (
+      <div style={{display: 'flex', flexDirection: 'column', flex: "1", minWidth: "0",maxWidth: "100%", overflowY: "scroll"}}>
+         <div style={{background: props.pallette.vibr, minWidth: "0",maxWidth: "100%", overflowX: "auto", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`, borderLeft: `${props.pallette.bright} solid`}}>
+            {props.debug && <p>--TG NAME: {props.name}--description: {`${props.desc}`}--icon path: {props.icon} -- tags: {props.tags}--color: {props.pallette.vibr} --Created At: {props.createdAt}-- Tasks:⬇️⬇️⬇️<br /> {props.tasks.map(t => '---------------------------------------------------------------------------------------------------------------------TASK_NAME: \n' + t.taskName + ' ___CREATED_AT: ' + t.createdAt + '___TASK: ' + t.task + '___DUE_DATE: ' + t.dueDate)}</p>}
+
+            <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden", alignItems: "center", marginTop: ".75em", flexWrap: "nowrap"}}>
+               <img className='taskGroupIcon' src={props.icon} style={{width: "4em", paddingTop: ".5em"}} />
+
+
+               <div style={{
+                 display: "flex",
+                 flexWrap: "wrap",
+                 alignItems: "flex-start",
+                 rowGap: "0.5em",
+                 columnGap: "0.5em",
+                 width: "100%"
+               }}>
+
+                  <header className='taskGroupHeader' style={{background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginRight: ".5em",paddingRight: "1em",paddingLeft: ".3em", width: "fit-content", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"}}>{props.name}</header>
+
+                  <div style={{display: "flex", justifyContent: "center", width: "100%", overflow: "wrap"}}>
+
+                     <button className='taskGroupButton'
+                        style={{margin: ".5em",padding: ".4em", fontFamily: 'fontHW', fontSize: 'calc(3px + .5vw)', minWidth: "40px", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark, maxHeight: "3em", alignSelf: "center", flexGrow: "1"}}
+                     >ADD TASK </ button>
+                     <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", marginRight: "0em"}} className='taskGroupOptions'><img src='./vectorGraphics/info-circle-fill-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}}/></button>
+                     <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", paddingRight: ".25em"}} className='taskGroupOptions' ><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}} /></button>
+
+                  </div>
+               </div>           
+            </div>
+
+            {/* <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden"}}>
+               <input
+                  style={{margin: ".5em", fontFamily: 'fontHW', fontSize: '.7em', flex: "1", minWidth: "0"}}
+                  type='text'
+                  placeholder='new task'
+               />
+               <button style={{margin: ".5em"}}>add</button>
+            </div> */}
+         </div>
+         {tasks}
       </div>
          
 )

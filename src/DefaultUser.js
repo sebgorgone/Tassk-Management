@@ -18,53 +18,72 @@ export const data = {
                createdAt: new Date().toLocaleString(),
                task: "DO THIS",
                dueDate: null,
-            }
-         ]         
-      },
-      {
-         taskGroupName: "New Task Group 2",
-         iconPath: "./vectorGraphics/assStencil.svg",
-         desc: 'The Second Task',
-         tags: [],
-         createdAt: new Date().toLocaleString(),
-         tasks: 
-         [
+            },
             {
-               taskName: "New Task 1 for TG 2",
+               taskName: "New Task",
                createdAt: new Date().toLocaleString(),
-               task: "DO THIS AGAIN",
+               task: "DO THIS",
                dueDate: null,
             },
             {
-               taskName: "New Task 2 for TG 2",
-               createdAt: new Date(Date.now() + 86400000).toLocaleString(),
-               task: "DO THIS AGAIN 2",
-               dueDate: new Date(Date.now() + 86400000 * 2).toLocaleString(),
-            }
-         ]         
-      },
-      {
-         taskGroupName: "New Task Group 2",
-         iconPath: "./vectorGraphics/assStencil.svg",
-         desc: 'The Second Task',
-         tags: [],
-         createdAt: new Date().toLocaleString(),
-         tasks: 
-         [
-            {
-               taskName: "New Task 1 for TG 2",
+               taskName: "New Task",
                createdAt: new Date().toLocaleString(),
-               task: "DO THIS AGAIN",
+               task: "DO THIS",
                dueDate: null,
             },
             {
-               taskName: "New Task 2 for TG 2",
-               createdAt: new Date(Date.now() + 86400000).toLocaleString(),
-               task: "DO THIS AGAIN 2",
-               dueDate: new Date(Date.now() + 86400000 * 2).toLocaleString(),
-            }
+               taskName: "New Task",
+               createdAt: new Date().toLocaleString(),
+               task: "DO THIS",
+               dueDate: null,
+            },
+            
          ]         
       },
+      // {
+      //    taskGroupName: "New Task Group 2",
+      //    iconPath: "./vectorGraphics/assStencil.svg",
+      //    desc: 'The Second Task',
+      //    tags: [],
+      //    createdAt: new Date().toLocaleString(),
+      //    tasks: 
+      //    [
+      //       {
+      //          taskName: "New Task 1 for TG 2",
+      //          createdAt: new Date().toLocaleString(),
+      //          task: "DO THIS AGAIN",
+      //          dueDate: null,
+      //       },
+      //       {
+      //          taskName: "New Task 2 for TG 2",
+      //          createdAt: new Date(Date.now() + 86400000).toLocaleString(),
+      //          task: "DO THIS AGAIN 2",
+      //          dueDate: new Date(Date.now() + 86400000 * 2).toLocaleString(),
+      //       }
+      //    ]         
+      // },
+      // {
+      //    taskGroupName: "New Task Group 2",
+      //    iconPath: "./vectorGraphics/assStencil.svg",
+      //    desc: 'The Second Task',
+      //    tags: [],
+      //    createdAt: new Date().toLocaleString(),
+      //    tasks: 
+      //    [
+      //       {
+      //          taskName: "New Task 1 for TG 2",
+      //          createdAt: new Date().toLocaleString(),
+      //          task: "DO THIS AGAIN",
+      //          dueDate: null,
+      //       },
+      //       {
+      //          taskName: "New Task 2 for TG 2",
+      //          createdAt: new Date(Date.now() + 86400000).toLocaleString(),
+      //          task: "DO THIS AGAIN 2",
+      //          dueDate: new Date(Date.now() + 86400000 * 2).toLocaleString(),
+      //       }
+      //    ]         
+      // },
       
    ],
    defaults:

@@ -20,12 +20,12 @@ function Shell() {
 
   const header = {
     fontFamily: "fontss",
-    background: c.dark
+    background: c.altLight
   }
 
   const body = {
     fontFamily: "fontss",
-    color: c.altLight
+    color: c.datk
   }
 
   const assO = {
@@ -91,7 +91,7 @@ useEffect(() => {
 
   return (
     <>
-      <div style={{position: 'fixed',top: '0', left: '0', minWidth: "100vw", minHeight: "100vh", zIndex: "-2", background: c.altLight}}></div>
+      <div style={{position: 'fixed',top: '0', left: '0', minWidth: "100vw", minHeight: "100vh", zIndex: "-2", background: c.dark}}></div>
       <img src='./vectorGraphics/assStencil.svg' style={{position: 'fixed',marginLeft: "10%", marginTop: "10em", width: "80%", zIndex: "-1"}}/>
       <div className="headerBar" style={header}>
         <img src='./vectorGraphics/ass.svg' className='headerIcon'/>

@@ -9,7 +9,7 @@ export const pallette = [
    {
       vibr: "#4F0147",
       dark: "#11001C",
-      light: "35012C",
+      light: "#35012C",
       altLight: "#290025",
       bright: "#3A015C"
    },
