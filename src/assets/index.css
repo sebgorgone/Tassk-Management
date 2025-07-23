@@ -121,6 +121,17 @@
   cursor: pointer;
  }
 
+ .closeButton {
+  box-shadow: .15em .15em rgb(0,0,0, .3);
+  background: #000;
+  transition: 350ms ease;
+ }
+
+ .closeButton:hover {
+  box-shadow: 0 0 rgb(0, 0, 0, 1);
+  cursor: pointer;
+ }
+
 
 
 

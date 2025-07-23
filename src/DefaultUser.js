@@ -2,14 +2,12 @@ export const data = {
    name: "Tassk Manager",
    crtdAt: new Date().toLocaleString(),
    pall: null,
-   tags: [],
    TGs: 
    [
       {
          taskGroupName: "New Task Group",
          iconPath: "./vectorGraphics/assStencil.svg",
          desc: null,
-         tags: [],
          createdAt: new Date().toLocaleString(),
          tasks: 
          [
@@ -20,19 +18,19 @@ export const data = {
                dueDate: null,
             },
             {
-               taskName: "New Task",
+               taskName: "New Task 1",
                createdAt: new Date().toLocaleString(),
                task: "DO THIS",
                dueDate: null,
             },
             {
-               taskName: "New Task",
+               taskName: "New Task 2",
                createdAt: new Date().toLocaleString(),
                task: "DO THIS",
                dueDate: null,
             },
             {
-               taskName: "New Task",
+               taskName: "New Task 3",
                createdAt: new Date().toLocaleString(),
                task: "DO THIS",
                dueDate: null,
@@ -44,7 +42,6 @@ export const data = {
          taskGroupName: "New Task Group 2",
          iconPath: "./vectorGraphics/assStencil.svg",
          desc: 'The Second Task',
-         tags: [],
          createdAt: new Date().toLocaleString(),
          tasks: 
          [
@@ -63,10 +60,9 @@ export const data = {
          ]         
       },
       {
-         taskGroupName: "New Task Group 2",
+         taskGroupName: "New Task Group 3",
          iconPath: "./vectorGraphics/assStencil.svg",
-         desc: 'The Second Task',
-         tags: [],
+         desc: 'The Third Task The Third Task The Third Task The Third Task The Third Task The Third Task',
          createdAt: new Date().toLocaleString(),
          tasks: 
          [
@@ -91,7 +87,7 @@ export const data = {
       savedColors: [],
       openTGs: 
       [
-         'New Task Group', 'New Task Group 2',
+         'New Task Group', 'New Task Group 2', 'New Task Group 3'
       ]
    }
 }

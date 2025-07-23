@@ -47,6 +47,34 @@ function Shell() {
     marginLeft: '.25em'
   }
 
+  //handlers
+
+  function handleUpdateArray(TGIndex, newArray) {
+    if (!data) return;
+
+    // normalize shape
+    const src = data.data ? data.data : data;
+
+    // build new TGs immutably
+    const newTGs = src.TGs.map((tg, i) =>
+      i === TGIndex ? { ...tg, tasks: newArray } : tg
+    );
+
+    const updated = { ...src, TGs: newTGs };
+
+    // update state & persist
+    setData(updated);
+    localStorage.setItem('data', JSON.stringify(updated));
+
+    console.log('handleUpdateArray() applied:', {
+      TGIndex,
+      beforeLen: src.TGs.length,
+      afterLen: updated.TGs.length,
+      beforeTasks: src.TGs[TGIndex]?.tasks,
+      afterTasks: updated.TGs[TGIndex]?.tasks
+    });
+  }
+
   // task group lists
 
   const [TGs, setTGs] = useState('loading');
@@ -56,37 +84,57 @@ function Shell() {
   //use effect
 
   useEffect(() => {
-  const stored = localStorage.getItem('data');
+    const stored = localStorage.getItem('data');
 
-  if (stored) {
-    try {
-      const parsed = JSON.parse(stored);
-      setData(parsed);
-      console.log('Loaded from localStorage:', parsed);
-      return;
-    } catch (e) {
-      console.error('Bad JSON in localStorage:', e);
-      localStorage.removeItem('data'); 
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        const normalized = parsed && parsed.data ? parsed.data : parsed;
+        setData(normalized);
+        console.log('Loaded from localStorage (normalized):', normalized);
+        return;
+      } catch (e) {
+        console.error('Bad JSON in localStorage:', e);
+        localStorage.removeItem('data');
+      }
     }
-  }
 
-  import('./DefaultUser').then((module) => {
-    const defaultData = module.default || module;
-    localStorage.setItem('data', JSON.stringify(defaultData));
-    setData(defaultData);
-    console.log('Loaded default data:', defaultData);
-  });
-}, []);
+    import('./DefaultUser').then((module) => {
+      const def = module.default || module;
+      const normalizedDefault = def && def.data ? def.data : def;
+      localStorage.setItem('data', JSON.stringify(normalizedDefault));
+      setData(normalizedDefault);
+      console.log('Loaded default data (normalized):', normalizedDefault);
+    });
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      localStorage.setItem('data', JSON.stringify(data));
+    }
+  }, [data]);
 
 useEffect(() => {
   if (data){ 
-  const openTGs = data.data.TGs
-  .filter(task => data.data.defaults.openTGs.includes(task.taskGroupName))
-  .map(task => (
-    <TaskGroup debug={debug} desc={task.desc} name={task.taskGroupName} tags={task.tags} createdAt={task.createdAt} tasks={task.tasks} key={task.taskGroupName} pallette={pallette[Math.floor(Math.random() * 2)]} icon={task.iconPath}/>
-  ));
-  setTGs(openTGs)
-}
+    const openTGs = data.TGs
+      .filter(task => data.defaults.openTGs.includes(task.taskGroupName))
+      .map((task, index) => (
+        <TaskGroup
+          debug={debug}
+          desc={task.desc}
+          name={task.taskGroupName}
+          tags={task.tags}
+          createdAt={task.createdAt}
+          tasks={task.tasks}
+          key={`${task.taskGroupName}-${index}`}
+          pallette={pallette[Math.floor(Math.random() * 2)]}
+          icon={task.iconPath}
+          index={index}
+          updateArray={(na) => handleUpdateArray(index, na)}
+        />
+      ));
+    setTGs(openTGs)
+  }
 },[data])
 
   return (
@@ -105,13 +153,13 @@ useEffect(() => {
         {TGs}
       </div>
      {debug && <p>
-        {`name: ${data && data.data.name}`} <br />
-        {`created at: ${data &&  data.data.crtdAt}`} <br />
-        {`pallette: ${data && data.data.pall}`} <br />
-        {`openTGs: ${data?.data?.defaults?.openTGs.join(' : ')}`} <br />
-        {`Saved Pallettes: ${data &&  data.data.defaults.savedColors}`} <br />      
-        {`tags: ${data && data.data.tags}`} <br />
-        {`TGs: ${data && data.data.TGs.map(tg => tg.taskGroupName + '__ DESCRIPTION: ' + tg.desc + '__CREATED_AT: ' + tg.createdAt + '__TAGS: ' + tg.tags + '__ __ __TASKS: ' + tg.tasks.map(t => '______TASK_NAME: ' + t.taskName + '__CREATED_AT: ' + t.createdAt + '__TASK: ' + t.task + '__'))}`} <br />
+        {`name: ${data && data.name}`} <br />
+        {`created at: ${data &&  data.crtdAt}`} <br />
+        {`pallette: ${data && data.pall}`} <br />
+        {`openTGs: ${data?.defaults?.openTGs.join(' : ')}`} <br />
+        {`Saved Pallettes: ${data &&  data.defaults.savedColors}`} <br />      
+        {`tags: ${data && data.tags}`} <br />
+        {`TGs: ${data && data.TGs.map(tg => tg.taskGroupName + '__ DESCRIPTION: ' + tg.desc + '__CREATED_AT: ' + tg.createdAt + '__TAGS: ' + tg.tags + '__ __ __TASKS: ' + tg.tasks.map(t => '______TASK_NAME: ' + t.taskName + '__CREATED_AT: ' + t.createdAt + '__TASK: ' + t.task + '__'))}`} <br />
       </p>}
       {/* <div className="headerBar" style={{background: c.bright}}></div>
       <div className="headerBar" style={{background: c.light}}></div>
