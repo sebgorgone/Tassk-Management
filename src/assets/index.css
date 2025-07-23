@@ -19,12 +19,12 @@
  }
 
 .headerBar:hover {
-   height: 7em;
+   height: 7.5em;
  }
 
  .headerTitle {
-  font-size: 1em;
-  transition: 500ms;
+  font-size: 1.3em;
+  transition: 550ms;
   padding-right: 1em;
   align-self: top;
   margin: 0;
@@ -132,7 +132,24 @@
   cursor: pointer;
  }
 
+ .folder-btn {
+  --r: 8%;        /* corner radius */
+  --tab-w: 30%;   /* width of the tab */
+  --tab-h: 18%;   /* height of the tab */
+  border: none;
+  width: 240px;
+  display: inline-block;
+  background: #f7c24b;
+  clip-path: polygon(
+    0% 18%, 8% 10%, 30% 10%, 30% 18%, 92% 18%, 100% 26%, 100% 92%, 92% 100%, 8% 100%, 0% 92%
+  );
+  -webkit-clip-path: polygon(
+    0% 18%, 8% 10%, 30% 10%, 30% 18%, 92% 18%, 100% 26%, 100% 92%, 92% 100%, 8% 100%, 0% 92%
+  );
+}
 
-
-
-
+@supports (clip-path: path("M0 0L1 1Z")) {
+  .folder-btn {
+    clip-path: path("M0 18% A8 8 0 0 1 8% 10% H22% A8 8 0 0 1 30% 18% H92% A8 8 0 0 1 100% 26% V92% A8 8 0 0 1 92% 100% H8% A8 8 0 0 1 0 92% Z");
+  }
+}

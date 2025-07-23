@@ -35,12 +35,24 @@ function Shell() {
   }
 
   const button = {
-    color: c.vibr
+    color: c.vibr,
+    width: "2em",
+    hieght: "2em",
+    marginRight: '.25em',
+    padding: "0",
+    paddingBottom: ".1em"
   }
 
   const buttonTilte = {
     color: c.bright,
-    fontSize: "2em",
+    fontSize: "1.7em",
+    margin: "0",
+    marginRight: '.25em'
+  }
+
+  const buttonTilteB = {
+    color: c.vibr,
+    fontSize: "1.7em",
     margin: "0",
     marginRight: '.25em'
   }
@@ -206,9 +218,13 @@ useEffect(() => {
 
         <div style={{display: "flex", flexDirection: "column", alignItems: "top"}}>
           <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>
-          <div style={{display: "flex", flexFlow: "row", alignItems: 'center', justifyContent: "center"}} className='headerButtonDiv'>
+          <div style={{display: "flex", flexFlow: "row", alignItems: 'center', justifyContent: "right", paddingRight: ".5em"}} className='headerButtonDiv'>
             <p style={buttonTilte} className='task'>New Task Group</p>
             <button style={button}>＋</button>
+          </div>
+          <div style={{display: "flex", flexFlow: "row", alignItems: 'right', justifyContent: "right", paddingRight: ".5em"}} className='headerButtonDiv'>
+            <p style={buttonTilteB} className='task'>Task Groups</p>
+            <button style={{aspectRatio: '3 / 4', marginRight: ".25em", width: "2em"}} className='folder-btn' type='button' onClick={() => setFiles(!files)}/>
           </div>
         </div>
         
@@ -216,7 +232,11 @@ useEffect(() => {
       </div>
 
       <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", zIndex: "0"}}>
-        <div style={{width: files ? "6em" : '0', background: files ? "rgb(0,0,0,.4)" : "0", transition: "450ms ease"}} className='files'></div>
+        <div style={{width: files ? "6em" : '0', background: files ? "rgb(0,0,0,.4)" : "0", transition: "450ms ease", display: "flex", flexDirection: "column"}} className='files'>
+          <button style={{color: c.altLight,display: files ? "block" : "none", margin: ".15em", width: "50%", alignSelf: "center", marginTop: ".5em", tansition: "200ms", border: "none", borderRadius: "1em", border: `solid .13em ${c.altLight}`}} type='button' onClick={() => {setFiles(!files)}} className='taskGroupOptions'>close</button>
+        </div>
+
+
         {TGs}
       </div>
 
