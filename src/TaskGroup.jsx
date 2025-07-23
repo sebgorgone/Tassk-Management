@@ -11,18 +11,23 @@ function TaskGroup (props) {
 
    const [tName, setTName] = useState(null);
    const [t, setT] = useState(null);
-   const [dueDate, setDueDate] = useState();
+   const [dueDate, setDueDate] = useState(null);
+
+   const [newTGName, setNewTGName] = useState('');
+   const [newTGDesc, setNewTGDesc] = useState('');
 
    //handlers
-   function setFalseFields() {
-      setNewTaskField(false)
-      setInfoField(false)
-      setSettingsField(false)
+    function setFalseFields() {
 
-      setTName('');
-      setT('');
-      setDueDate('');
-      setNewTask('');
+       setNewTaskField(false)
+       setInfoField(false)
+       setSettingsField(false)
+ 
+       setTName('');
+       setT('');
+       setDueDate('');
+       setNewTask('');
+
    }
 
    function moveItem(array, fromIndex, toIndex) {
@@ -60,7 +65,7 @@ function TaskGroup (props) {
    function handleNewTaskField (e) {
       e.preventDefault();
       setFalseFields();
-      setNewTaskField(prev => !prev);
+      setNewTaskField(!newTask);
    }
 
    
@@ -82,13 +87,14 @@ function TaskGroup (props) {
    }, [newTask])
 
    return (
-      <div style={{flexDirection: 'column', flex: "1", minWidth: "0",maxWidth: "100%", overflowY: "scroll"}}>
-         <div style={{background: props.pallette.vibr, minWidth: "0",maxWidth: "100%", overflowX: "auto", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`, borderLeft: !newTaskField ? `${props.pallette.bright} solid` : 'none', borderBottomRightRadius: newTaskField ? '2em' : '0', borderBottomLeftRadius: newTaskField ? '2em' : '0' }}>
+      <div style={{flexDirection: 'column', flex: "1", minWidth: "0",maxWidth: "100%", overflowY: "scroll", height: "calc(100vh - 1.75em)"}}>
+         <div style={{background: props.pallette.vibr,width: `calc(100% / ${props.open})`, overflowX: "hidden", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`, borderLeft: (!newTaskField && !infoField && !settingsField) ? `${props.pallette.bright} solid` : 'none', borderBottomRightRadius: (newTaskField || infoField || settingsField) ? '2em' : '0', borderBottomLeftRadius: (newTaskField || infoField || settingsField) ? '2em' : '0', position: "absolute"}}>
             {props.debug && <p>--TG NAME: {props.name}--description: {`${props.desc}`}--icon path: {props.icon} -- tags: {props.tags}--color: {props.pallette.vibr} --Created At: {props.createdAt}-- Tasks:⬇️⬇️⬇️<br /> {props.tasks.map(t => '---------------------------------------------------------------------------------------------------------------------TASK_NAME: \n' + t.taskName + ' ___CREATED_AT: ' + t.createdAt + '___TASK: ' + t.task + '___DUE_DATE: ' + t.dueDate)}</p>}
 
-            <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden", alignItems: "center", marginTop: ".75em", flexWrap: "nowrap"}}>
-               <img className='taskGroupIcon' src={props.icon} style={{width: "4em", paddingTop: ".5em"}} />
-
+            <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden", alignItems: "center", marginTop: ".75em", flexWrap: "nowrap", position: "relative", boxSizing: "border-box"}}>
+               <div style={{minWidth: "3.5em", height: "3.83em"}}> 
+                  <img className='taskGroupIcon' src={props.icon} style={props.icon === "./vectorGraphics/assStencil.svg" ? {width: "4em", paddingTop: ".5em"} : {width: "6.7em",height: "6.7em", maxWidth: "none", margin: "0", position: "absolute", top: -16, left: -30}} />
+               </div>
 
                <div style={{
                  display: "flex",
@@ -101,7 +107,7 @@ function TaskGroup (props) {
 
                   <header className='taskGroupHeader' style={{background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginRight: ".5em",paddingRight: "1em",paddingLeft: ".3em", width: "fit-content", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"}}>{props.name}</header>
 
-                  <div style={{display: "flex", justifyContent: "center", width: "100%", overflow: "wrap"}}>
+                  <div style={{display: "flex", justifyContent: "left", width: "80%", overflow: "wrap"}}>
 
                      <button className='taskGroupButton'
                         style={{margin: ".5em",padding: ".4em", fontFamily: 'fontHW', fontSize: 'calc(3px + .5vw)', minWidth: "40px", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark, maxHeight: "3em", alignSelf: "center", flexGrow: "1"}}
@@ -111,13 +117,13 @@ function TaskGroup (props) {
                         type='button'
                         onClick={() => {
                            setFalseFields();
-                           setInfoField(true);
+                           setInfoField(!infoField);
                         }}
                         style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", marginRight: "0em"}} 
                         className='taskGroupOptions'
                      ><img src='./vectorGraphics/info-circle-fill-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}}/>
                      </button>
-                     <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", paddingRight: ".25em"}} className='taskGroupOptions' ><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}} /></button>
+                     <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", paddingRight: ".25em"}} className='taskGroupOptions' onClick={e => {e.preventDefault(); setFalseFields(); setSettingsField(!settingsField)}} ><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}} /></button>
 
                   </div>
                </div>           
@@ -150,8 +156,8 @@ function TaskGroup (props) {
                            }}>
                               add
                   </button>
-                  <button className='taskGroupButton'
-                           style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "20px", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark, maxHeight: "3em", alignSelf: "center", flexGrow: "1"}}
+                  <button className='closeButton'
+                           style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "20px", borderRadius: "2em", border: `0`, color: props.pallette.vibr, maxHeight: "3em", alignSelf: "center", flexGrow: "1"}}
                            type='button'
                            onClick={setFalseFields}>
                               close
@@ -162,7 +168,7 @@ function TaskGroup (props) {
                </div>
                <div style={{display: "flex", justifyContent: "center", width: "100%", overflow: "hidden"}}>
                   <textarea
-                     style={{width: "85%", fontFamily: "fonthw", fontSize: ".7em"}}
+                     style={{width: "85%", fontFamily: "fonthw", fontSize: ".7em", border: 'none'}}
                      value={t}
                      onChange={
                         e => setT(e.target.value)
@@ -203,13 +209,68 @@ function TaskGroup (props) {
                      <p style={{margin: ".3em", fontWeight: "bold", color: props.pallette.light}}>Created at: <span style={{color: props.pallette.altLight}}>{props.createdAt}</span></p>
                   </div>
 
-                  <div style={{display: "flex", justifyContent: "right", width: "100%", overflow: "hidden", padding: ".2em"}}>
-                     <img className='taskGroupIcon' src={props.icon} style={{width: "2.4em", paddingTop: ".5em"}} />
+                  <div style={{display: "flex", justifyContent: "right", width: "100%", overflow: "hidden", padding: ".5em", alignItems: "center"}}>
+                     {props.icon === "./vectorGraphics/ass.svg" ?  'favorited' : null}
+                     <img className='taskGroupIcon' src={props.icon} style={{width: props.icon === "./vectorGraphics/ass.svg" ? "6.5em" : "4em", paddingTop: ".5em", marginRight: "1em"}} />
                   </div>
 
-               </div>: null}
+               </div>: null} 
+
+               {settingsField ? <form onSubmit={e => {e.preventDefault(); if((newTGName === '' && newTGDesc === '') || (newTGName === null && newTGDesc === null)) return alert('No changes'); props.updateSettings((newTGName === '' || newTGName === null) ? props.name : newTGName,(newTGDesc === '' || newTGDesc === null) ? props.desc : newTGDesc)}}>
+                  <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden"}}>
+                     <input
+                        style={{margin: ".5em", fontFamily: 'fontss', fontSize: '1em', flex: "1", minWidth: "0",}}
+                        type='text'
+                        placeholder={props.name}
+                        value={newTGName}
+                        onChange={e => {
+                           setNewTGName(e.target.value);
+                        }}
+                     />
+                     <button
+                        style={{borderRadius: '2em', border: 'none', fontFamily: "fontss", fontSize: "1em", width: "40%", color: props.pallette.vibr, height: "60%", alignSelf: "center", marginRight: ".3em"}}
+                        className="closeButton"
+                        type='button'
+                        onClick={() => {setFalseFields()}}
+                     >close</button>
+                  </div>
+                  <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", paddingLeft: ".2em"}}>
+                     <p style={{margin: "0", alignSelf: "center"}}>Favorited:</p>
+                     <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", paddingLeft: ".2em", paddingRight: ".2em", alignItems: "center"}}>
+                        <button onClick={e => {e.preventDefault(); props.favorited();}} style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "40px", borderRadius: "2em", border: `none`, color: props.pallette.dark, alignSelf: "center"}} className='taskOptions'><img src={props.icon} style={{width: "2.4em", paddingTop: ".5em", paddingLeft: ".2em", paddingRight: ".2em"}}/></button>
+                        <p style={{fontSize: "1.5em"}}>{props.icon === "./vectorGraphics/assStencil.svg" ? '❌' : '✅'}</p>
+                     </div>
+                  </div>
+                  <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", padding: ".2em"}}>
+                     <p style={{margin: "0"}}>description / notes</p>
+                  </div>
+                  <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", padding: ".2em"}}>
+                     <textarea 
+                        style={{borderBottomRightRadius: ".3em", borderBottomLeftRadius: ".3em", border: "none", fontFamily: "fontss", paddingBottom: ".1em"}}
+                        placeholder={`${props.desc}`}
+                        value={newTGDesc}
+                        onChange={e => setNewTGDesc(e.target.value)}
+                     />
+                  </div>
+                  <div style={{display: "flex", justifyContent: "center", width: "100%", overflow: "hidden", padding: ".2em"}}>
+                     <button className='taskGroupButton'
+                              style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "80px", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark, maxHeight: "3em", alignSelf: "center"}}
+                              onClick={ e => {
+                                 e.preventDefault();
+                                 if((newTGName === '' && newTGDesc === '') || (newTGName === null && newTGDesc === null)) return alert('No changes');
+                                 props.updateSettings((newTGName === '' || newTGName === null) ? props.name : newTGName,(newTGDesc === '' || newTGDesc === null) ? props.desc : newTGDesc)
+                              }}>
+                                 update
+                     </button>
+                  </div>
+               </form> : null }
 
          </div>
+         <br />
+         <br />
+         <br />
+         <br />
+         <br />
          {tasks}
       </div>
          
