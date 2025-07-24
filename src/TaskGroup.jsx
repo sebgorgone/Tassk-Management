@@ -51,9 +51,9 @@ function TaskGroup (props) {
 
    function addItem(array) {
       console.log('adding item to: ' + array)
-      const newArray = [...array];
+      let newArray = [...array];
       console.log(`inital: -${JSON.stringify(newArray)}-`);
-      newArray.push(newTask)
+      newArray = [ newTask, ...newArray]
       console.log('updated: ' + JSON.stringify(newArray));
       props.updateArray(newArray);
       setTName('');
@@ -70,6 +70,7 @@ function TaskGroup (props) {
 
    
    //tasks lists 
+
 
    const tasks = props.tasks ? 
       props.tasks.map(((t, index) => {
@@ -88,10 +89,12 @@ function TaskGroup (props) {
 
    return (
       <div style={{flexDirection: 'column', flex: "1", minWidth: "0",maxWidth: "100%", overflowY: "scroll", height: "calc(100vh - 1.75em)"}}>
-         <div style={{background: props.pallette.vibr,width: `calc(100% / ${props.open})`, overflowX: "hidden", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`, borderLeft: (!newTaskField && !infoField && !settingsField) ? `${props.pallette.bright} solid` : 'none', borderBottomRightRadius: (newTaskField || infoField || settingsField) ? '2em' : '0', borderBottomLeftRadius: (newTaskField || infoField || settingsField) ? '2em' : '0', position: "absolute"}}>
+         
+         <div style={{background: props.pallette.vibr, overflowX: "hidden", display: "flex", flexFlow: "column", borderTop: `${props.pallette.bright} solid .5em`, borderLeft: (!newTaskField && !infoField && !settingsField) ? `${props.pallette.bright} solid` : 'none', borderBottomRightRadius: (newTaskField || infoField || settingsField) ? '2em' : '0', borderBottomLeftRadius: (newTaskField || infoField || settingsField) ? '2em' : '0'}}>
             {props.debug && <p>--TG NAME: {props.name}--description: {`${props.desc}`}--icon path: {props.icon} -- tags: {props.tags}--color: {props.pallette.vibr} --Created At: {props.createdAt}-- Tasks:⬇️⬇️⬇️<br /> {props.tasks.map(t => '---------------------------------------------------------------------------------------------------------------------TASK_NAME: \n' + t.taskName + ' ___CREATED_AT: ' + t.createdAt + '___TASK: ' + t.task + '___DUE_DATE: ' + t.dueDate)}</p>}
 
-            <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden", alignItems: "center", marginTop: ".75em", flexWrap: "nowrap", position: "relative", boxSizing: "border-box"}}>
+            <div style={{display: "flex", justifyContent: "space-between", width: "100%", overflow: "hidden", alignItems: "center", marginTop: ".1em", flexWrap: "nowrap", position: "relative", boxSizing: "border-box"}}>
+               <button type='button' style={{position: 'absolute', top: 1,left: 3, border: "none", transition: "200ms", borderRadius: "1em", zIndex: "5"}} className="TGListButton" onClick={() => props.closeTG()}>ⓧ</button>
                <div style={{minWidth: "3.5em", height: "3.83em"}}> 
                   <img className='taskGroupIcon' src={props.icon} style={props.icon === "./vectorGraphics/assStencil.svg" ? {width: "4em", paddingTop: ".5em"} : {width: "6.7em",height: "6.7em", maxWidth: "none", margin: "0", position: "absolute", top: -16, left: -30}} />
                </div>
@@ -246,7 +249,7 @@ function TaskGroup (props) {
                   </div>
                   <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", padding: ".2em"}}>
                      <textarea 
-                        style={{borderBottomRightRadius: ".3em", borderBottomLeftRadius: ".3em", border: "none", fontFamily: "fontss", paddingBottom: ".1em"}}
+                        style={{borderBottomRightRadius: ".3em", borderBottomLeftRadius: ".3em", border: "none", fontFamily: "fontss", paddingBottom: ".1em", width: "80%"}}
                         placeholder={`${props.desc}`}
                         value={newTGDesc}
                         onChange={e => setNewTGDesc(e.target.value)}
@@ -258,7 +261,9 @@ function TaskGroup (props) {
                               onClick={ e => {
                                  e.preventDefault();
                                  if((newTGName === '' && newTGDesc === '') || (newTGName === null && newTGDesc === null)) return alert('No changes');
-                                 props.updateSettings((newTGName === '' || newTGName === null) ? props.name : newTGName,(newTGDesc === '' || newTGDesc === null) ? props.desc : newTGDesc)
+                                 props.updateSettings((newTGName === '' || newTGName === null) ? props.name : newTGName,(newTGDesc === '' || newTGDesc === null) ? props.desc : newTGDesc);
+                                 setNewTGName('');
+                                 setNewTGDesc('');
                               }}>
                                  update
                      </button>
@@ -266,11 +271,7 @@ function TaskGroup (props) {
                </form> : null }
 
          </div>
-         <br />
-         <br />
-         <br />
-         <br />
-         <br />
+
          {tasks}
       </div>
          

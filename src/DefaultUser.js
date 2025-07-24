@@ -1,11 +1,20 @@
 export const data = {
    name: "Tassk Manager",
    crtdAt: new Date().toLocaleString(),
-   pall: null,
+   pallettes: [
+      {
+         vibr: "#F06449",
+         dark: "#36382E",
+         light: "#EDE6E3",
+         altLight: "#DADAD9",
+         bright: "#5BC3EB"
+      }
+   ],
    TGs: 
    [
       {
          taskGroupName: "New Task Group",
+         pall: null,
          iconPath: "./vectorGraphics/assStencil.svg",
          desc: null,
          createdAt: new Date().toLocaleString(),
@@ -40,6 +49,7 @@ export const data = {
       },
       {
          taskGroupName: "New Task Group 2",
+         pall: null,
          iconPath: "./vectorGraphics/assStencil.svg",
          desc: 'The Second Task',
          createdAt: new Date().toLocaleString(),
@@ -61,6 +71,7 @@ export const data = {
       },
       {
          taskGroupName: "New Task Group 3",
+         pall: null,
          iconPath: "./vectorGraphics/assStencil.svg",
          desc: 'The Third Task The Third Task The Third Task The Third Task The Third Task The Third Task',
          createdAt: new Date().toLocaleString(),
@@ -87,7 +98,7 @@ export const data = {
       savedColors: [],
       openTGs: 
       [
-         'New Task Group', 'New Task Group 2', 'New Task Group 3'
+         'New Task Group'
       ]
    }
 }

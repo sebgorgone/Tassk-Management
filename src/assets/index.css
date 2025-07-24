@@ -132,12 +132,14 @@
   cursor: pointer;
  }
 
- .folder-btn {
+ #folder-btn {
+  cursor: pointer;
   --r: 8%;        /* corner radius */
   --tab-w: 30%;   /* width of the tab */
   --tab-h: 18%;   /* height of the tab */
   border: none;
   width: 240px;
+  transition: 200ms ease;
   display: inline-block;
   background: #f7c24b;
   clip-path: polygon(
@@ -149,7 +151,38 @@
 }
 
 @supports (clip-path: path("M0 0L1 1Z")) {
-  .folder-btn {
+  #folder-btn {
     clip-path: path("M0 18% A8 8 0 0 1 8% 10% H22% A8 8 0 0 1 30% 18% H92% A8 8 0 0 1 100% 26% V92% A8 8 0 0 1 92% 100% H8% A8 8 0 0 1 0 92% Z");
   }
 }
+
+#folder-btn:hover {
+  background: #a98634;
+}
+
+.TGButton {
+  cursor: pointer;
+  border-radius: 1em;
+  border: none;
+  background: rgb(0,0,0,.25);
+  transition: 150ms;
+}
+
+.TGButton:hover {
+  background: transparent;
+  
+  border: .1em solid;
+
+}
+
+.TGListButton {
+  cursor: pointer;
+  transition: 100 ease;
+  background: transparent;
+}
+
+.TGListButton:hover {
+  background: rgb(100,100,100, .7)
+}
+
+

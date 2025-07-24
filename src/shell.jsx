@@ -3,6 +3,7 @@ import './assets/index.css'
 import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
 function Shell() {
+  localStorage.clear()
   //state
   const [data, setData] = useState(null)
   console.log('DATA VALUE: ', data)
@@ -13,7 +14,9 @@ function Shell() {
 
   const debug = false;
 
-  const [files, setFiles] = useState(true)
+  const [files, setFiles] = useState(false)
+
+  const [newTGField, setNewTGField] = useState(false)
 
 
   const header = {
@@ -36,11 +39,7 @@ function Shell() {
 
   const button = {
     color: c.vibr,
-    width: "2em",
-    hieght: "2em",
-    marginRight: '.25em',
-    padding: "0",
-    paddingBottom: ".1em"
+    borderColor: c.vibr
   }
 
   const buttonTilte = {
@@ -54,7 +53,8 @@ function Shell() {
     color: c.vibr,
     fontSize: "1.7em",
     margin: "0",
-    marginRight: '.25em'
+    marginRight: '.25em',
+    alignSelf: "center"
   }
 
   //handlers
@@ -142,13 +142,68 @@ function Shell() {
     });
   }
 
+function handleOpenTG(index) {
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ? prev.data : prev;
+
+    const name = src.TGs[index].taskGroupName;
+    const open = src.defaults?.openTGs ?? [];
+
+    if (open.includes(name) || open.length >= 5) return prev;
+
+    const updated = {
+      ...src,
+      defaults: {
+        ...src.defaults,
+        openTGs: [name, ...open]
+      }
+    };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
+function handleCloseTG(index) {
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ? prev.data : prev;
+
+    const name = src.TGs[index].taskGroupName;
+    const open = src.defaults?.openTGs ?? [];
+
+    const newOpen = open.filter(n => n !== name);
+
+    const updated = {
+      ...src,
+      defaults: {
+        ...src.defaults,
+        openTGs: newOpen
+      }
+    };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
 
 
   // task group lists
 
   const [TGs, setTGs] = useState('loading');
 
-  console.log(TGs);
+  const TGList = data && data.TGs.map((tg, index) => {
+    return (
+      <div key={index} className='TGList' style={{display: "inline-block", minWidth: "max-content"}}>
+        {(tg.iconPath && files) && <img style={{position: 'absolute', width: '2em', left: -8}} src={tg.iconPath}/>}
+        <button type='button' onClick={() => handleOpenTG(index)} style={{margin: "0", marginLeft: "1.5em", color: c.light, fontSize: ".85em", border: "0"}} className='TGListButton'>{tg.taskGroupName}</button>
+      </div>
+    )
+  })
 
   //use effect
 
@@ -184,30 +239,32 @@ function Shell() {
   }, [data]);
 
 useEffect(() => {
-  if (data){ 
+  if (data) {
     const openTGs = data.TGs
-      .filter(task => data.defaults.openTGs.includes(task.taskGroupName))
-      .map((task, index) => (
+      .map((tg, i) => ({ tg, i }))
+      .filter(({ tg }) => data.defaults.openTGs.includes(tg.taskGroupName))
+      .map(({ tg, i }) => (
         <TaskGroup
           debug={debug}
-          desc={task.desc}
-          name={task.taskGroupName}
-          tags={task.tags}
-          createdAt={task.createdAt}
-          tasks={task.tasks}
-          key={`${task.taskGroupName}-${index}`}
-          pallette={pallette[Math.floor(Math.random() * 2)]}
-          icon={task.iconPath}
-          index={index}
-          updateArray={(na) => handleUpdateArray(index, na)}
-          updateSettings={(newName, newDesc) => handleUpdateSettings(index, newName, newDesc)}
-          favorited={() => handleUpdateFavorited(index)}
+          desc={tg.desc}
+          name={tg.taskGroupName}
+          tags={tg.tags}
+          createdAt={tg.createdAt}
+          tasks={tg.tasks}
+          key={`${tg.taskGroupName}-${i}`}
+          pallette={tg.pall ? tg.pall : pallette[1]}
+          icon={tg.iconPath}
+          index={i}
+          updateArray={(na) => handleUpdateArray(i, na)}
+          updateSettings={(newName, newDesc) => handleUpdateSettings(i, newName, newDesc)}
+          favorited={() => handleUpdateFavorited(i)}
           open={data.TGs.length}
+          closeTG={() => handleCloseTG(i)}
         />
       ));
-    setTGs(openTGs)
+    setTGs(openTGs);
   }
-},[data])
+}, [data]);
 
   return (
     <>
@@ -216,29 +273,49 @@ useEffect(() => {
       <div className="headerBar" style={header}>
         <img src='./vectorGraphics/ass.svg' className='headerIcon'/>
 
+        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'>pallettes🎨</div>
+
         <div style={{display: "flex", flexDirection: "column", alignItems: "top"}}>
           <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>
-          <div style={{display: "flex", flexFlow: "row", alignItems: 'center', justifyContent: "right", paddingRight: ".5em"}} className='headerButtonDiv'>
+          <div style={{display: "flex", flexFlow: "row", alignItems: 'center', justifyContent: "right", paddingRight: "2em"}} className='headerButtonDiv'>
             <p style={buttonTilte} className='task'>New Task Group</p>
-            <button style={button}>＋</button>
+            <button style={button} className='TGButton' type='button' onClick={() => {setNewTGField(!newTGField)}}>✚</button>
           </div>
-          <div style={{display: "flex", flexFlow: "row", alignItems: 'right', justifyContent: "right", paddingRight: ".5em"}} className='headerButtonDiv'>
+          <div style={{display: "flex", flexFlow: "row", alignItems: 'right', justifyContent: "right", paddingRight: "1.5em"}} className='headerButtonDiv'>
             <p style={buttonTilteB} className='task'>Task Groups</p>
-            <button style={{aspectRatio: '3 / 4', marginRight: ".25em", width: "2em"}} className='folder-btn' type='button' onClick={() => setFiles(!files)}/>
+            <button style={{aspectRatio: '3 / 4', marginRight: ".25em", width: "2em"}} id='folder-btn' type='button' onClick={() => setFiles(!files)} />
           </div>
         </div>
         
         
       </div>
 
-      <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", zIndex: "0"}}>
-        <div style={{width: files ? "6em" : '0', background: files ? "rgb(0,0,0,.4)" : "0", transition: "450ms ease", display: "flex", flexDirection: "column"}} className='files'>
-          <button style={{color: c.altLight,display: files ? "block" : "none", margin: ".15em", width: "50%", alignSelf: "center", marginTop: ".5em", tansition: "200ms", border: "none", borderRadius: "1em", border: `solid .13em ${c.altLight}`}} type='button' onClick={() => {setFiles(!files)}} className='taskGroupOptions'>close</button>
+      {newTGField ? 
+        <div style={{
+          width: "100%",
+          background: "rgb(0, 0, 0, .65)",
+          height: "calc(100vh - 1.75em)",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center"
+        }}>
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            fontFamily: "fontss",
+            color: c.light
+          }}>
+            <h1>New Task Group</h1>
+          </div>
         </div>
-
-
+        : 
+        <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", zIndex: "0"}}>
+        <div style={{width: files ? "10em" : '0', background: files ? "rgb(0,0,0,.4)" : "0", transition: "600ms ease", display: "flex", flexDirection: "column", overflow: "hidden", height: "calc(100vh - 1.75em)"}} className='files'>
+          <button style={{color: files ? c.altLight : 'rgb(0, 0, 0, 0)', margin: ".15em", width: "50%", alignSelf: "center", marginTop: ".5em", tansition: "200ms", borderRadius: "1em", border: files ? `solid .13em ${c.altLight}` : 'rgb(0, 0, 0, 0)', overflowX: "hidden"}} type='button' onClick={() => {setFiles(!files)}} className='taskGroupOptions'>close</button>
+          {TGList}
+        </div>
         {TGs}
-      </div>
+      </div>}
 
 
      {debug && <p>
