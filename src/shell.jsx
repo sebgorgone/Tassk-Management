@@ -209,6 +209,26 @@ function handleAddPall(newPall) {
   });
 }
 
+function handleDelPall(idx) {
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ? prev.data : prev;
+    const existing = Array.isArray(src.pallettes) ? src.pallettes : [];
+
+    // remove by index
+    const updatedPals = existing.filter((_, i) => i !== idx);
+
+    const updated = {
+      ...src,
+      pallettes: updatedPals
+    };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
 function handleUpdatePall(newPall, index) {
   setData(prev => {
     if (!prev) return prev;
@@ -298,10 +318,10 @@ useEffect(() => {
           favorited={() => handleUpdateFavorited(i)}
           open={data.TGs.length}
           closeTG={() => handleCloseTG(i)}
+          pallettes={data.pallettes}
         />
       ));
     setTGs(openTGs);
-    setColorEditor(true)
   }
 }, [data]);
 
@@ -355,6 +375,7 @@ useEffect(() => {
               sysPallette={pallette[1]}
               create={(np) => handleAddPall(np)}
               update={(up, index) => handleUpdatePall(up, index)}
+              delete={(index) => {handleDelPall(index)}}
             />
           </div>
         </>:<>

@@ -237,9 +237,17 @@ function TaskGroup (props) {
                         onClick={() => {setFalseFields()}}
                      >close</button>
                   </div>
-                  <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", paddingLeft: ".2em"}}>
+
+                  {/* pallette */}
+                  <div style={{display: "flex",}}>
+
+                     
+
+                  </div>
+
+                  <div style={{display: "flex", width: "100%", overflow: "hidden", paddingLeft: ".2em"}}>
                      <p style={{margin: "0", alignSelf: "center"}}>Favorited:</p>
-                     <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", paddingLeft: ".2em", paddingRight: ".2em", alignItems: "center"}}>
+                     <div style={{display: "flex", justifyContent: "center", width: "50%", overflow: "hidden", paddingLeft: ".2em", paddingRight: ".2em", alignItems: "center"}}>
                         <button onClick={e => {e.preventDefault(); props.favorited();}} style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "40px", borderRadius: "2em", border: `none`, color: props.pallette.dark, alignSelf: "center"}} className='taskOptions'><img src={props.icon} style={{width: "2.4em", paddingTop: ".5em", paddingLeft: ".2em", paddingRight: ".2em"}}/></button>
                         <p style={{fontSize: "1.5em"}}>{props.icon === "./vectorGraphics/assStencil.svg" ? '❌' : '✅'}</p>
                      </div>

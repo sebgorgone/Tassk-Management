@@ -187,13 +187,13 @@ function ColorEditor (props) {
                         dark: revisedDark,
                         name: revisedPallName
                      }); setAddNewPalletteField(false); setEditedPallette(null); setEditPalletteField(null);}}>save</button>
-                     <button style={{ alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: "1em", color: 'red', marginRight: "1em", padding: ".3em"}} type='button' className="taskOptions" onClick={() => {setEditPalletteField(false); setAddNewPalletteField(false); setEditedPallette(null)}}>delete</button>
+                     <button style={{ alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: "1em", color: 'red', marginRight: "1em", padding: ".3em"}} type='button' className="taskOptions" onClick={() => {props.delete(editedIndex);setEditPalletteField(false); setAddNewPalletteField(false); setEditedPallette(null)}}>delete</button>
                   </div>
                
             </div>
           :
          //  CREATE
-            <div style={{flex: 1, fontFamily: "fontss"}}>
+            <div style={{flex: 1, fontFamily: "fontss", paddingRight: ".5em"}}>
             {addNewPalletteField ? 
                <div style={{display: "flex", flexDirection: "column"}}>
 
