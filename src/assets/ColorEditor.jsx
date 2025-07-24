@@ -17,8 +17,19 @@ function ColorEditor (props) {
    const [newDark, setNewDark] = useState(props.sysPallette.dark);  
 
    const [newPallette, setNewPallette] = useState(null)
+   const [revisedPallette, setRevisedPallette] = useState(null)
 
+   const [editedIndex, setEditedIndex] = useState(null)
+
+   const [revisedPallName, setRevisedPallName] = useState(null)   
+   const [revisedVibr, setRevisedVibr] = useState(null)   
+   const [revisedBright, setRevisedBright] = useState(null)
+   const [revisedLight, setRevisedLight] = useState(null)
+   const [revisedAltLight, setRevisedAltLight] = useState(null)   
+   const [revisedDark, setRevisedDark] = useState(null)
    //effect
+
+   console.log(editedPallette)
 
    useEffect(() => {
       if (newPallette === null) return
@@ -31,6 +42,31 @@ function ColorEditor (props) {
       setNewDark(props.sysPallette.dark);
       setAddNewPalletteField(false);
    }, [newPallette])
+
+   useEffect(() => {
+      if (editedPallette === null) return
+      setRevisedPallName(editedPallette.name);               
+      setRevisedVibr(editedPallette.vibr);
+      setRevisedBright(editedPallette.bright);
+      setRevisedLight(editedPallette.light);
+      setRevisedAltLight(editedPallette.altLight);
+      setRevisedDark(editedPallette.dark);
+   }, [editedPallette])
+
+   useEffect(() => {
+      if (revisedPallette === null) return
+
+      props.update(revisedPallette, editedIndex)
+
+      setRevisedPallName(null);               
+      setRevisedVibr(null);
+      setRevisedBright(null);
+      setRevisedLight(null);
+      setRevisedAltLight(null);
+      setRevisedDark(null);
+      setEditedIndex
+
+   }, [revisedPallette])
 
    return (<>
       <div style={{display: "flex", justifyContent: "center", fontFamily: "fontss", color: props.sysPallette.light}}><h1>Color Pallettes</h1></div>
@@ -46,13 +82,14 @@ function ColorEditor (props) {
                type='button'
                onClick={() => {
                   setNewPallName('My New Pallette');
+                  setEditedIndex(index)
                   setNewVibr(props.sysPallette.vibr);
                   setNewBright(props.sysPallette.bright);    
                   setNewLight(props.sysPallette.light);
                   setNewAltLight(props.sysPallette.altLight);
                   setNewDark(props.sysPallette.dark);
                   setAddNewPalletteField(false);
-                  setEditedPallette(p);
+                  setEditedPallette(p);              
                   setEditPalletteField(true)
                }}
                style={{width: "45%", margin: ".3em", fontFamily: "fontss", borderRadius: ".5em", padding: ".2em",paddingBottom: "0", color: p.vibr, textAlign: "left", border: "none", display: "flex", justifyContent: "space-between", fontSize: "1em",height: "1.7em"}} className='colorPalletteList'>
@@ -73,12 +110,86 @@ function ColorEditor (props) {
          // EDIT
             <div style={{flex: 1, fontFamily: "fontss", display: "flex", flexDirection: "column"}}>
                <div style={{display: "flex", justifyContent: "space-between", color: props.sysPallette.light}}>
-                  <h1>edit {editedPallette.name}</h1>
-               <button style={{height: "30%", alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: ".6em", color: props.sysPallette.light, marginRight: "1em"}} type='button' className="taskOptions" onClick={() => {setEditPalletteField(false); setAddNewPalletteField(false); setEditedPallette(null)}}>cancel</button>
-                  </div>
+                  <h1>Edit {editedPallette.name}</h1>
+                  <button style={{height: "30%", alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: "1em", color: props.sysPallette.light, marginRight: "1em", padding: ".3em"}} type='button' className="taskOptions" onClick={() => {setEditPalletteField(false); setAddNewPalletteField(false); setEditedPallette(null)}}>cancel</button>
+               </div>
                <input 
                style={{borderRadius: "1em", border: 'solid grey', textAlign: "center", fontFamily: "fontss", width: "50%", padding: ".4em", alignSelf: "center"}}
-               placeholder={editedPallette.name} />
+               value={revisedPallName}
+               onChange={e => setRevisedPallName(e.target.value)}
+               placeholder={editedPallette.name} 
+               />
+
+               <div style={{display: "flex", color: props.sysPallette.light, margin: ".1em", alignItems: "center"}}>
+                     <p>Vibrant:</p> 
+                        <input 
+                           style={{alignSelf: "center", margin: ".5em", cursor: "pointer", flex: 1}}
+                           value={revisedVibr}
+                           type='color' 
+                           onChange={(e) => setRevisedVibr(e.target.value)}
+                           />
+                  </div>
+
+                  <div style={{display: "flex", color: props.sysPallette.light, margin: ".1em", alignItems: "center"}}>
+                     <p>Bright:</p> 
+                        <input 
+                           style={{alignSelf: "center", margin: ".5em", cursor: "pointer", flex: 1}}
+                           value={revisedBright}
+                           type='color' 
+                           onChange={(e) => setRevisedBright(e.target.value)}
+                           />
+                  </div>
+
+                  <div style={{display: "flex", color: props.sysPallette.light, margin: ".1em", alignItems: "center"}}>
+                     <p>Light:</p> 
+                        <input 
+                           style={{alignSelf: "center", margin: ".5em", cursor: "pointer", flex: 1}}
+                           value={revisedLight}
+                           type='color' 
+                           onChange={(e) => setRevisedLight(e.target.value)}
+                           />
+                  </div>
+
+                  <div style={{display: "flex", color: props.sysPallette.light, margin: ".1em", alignItems: "center"}}>
+                     <p>Alternative Light:</p> 
+                        <input 
+                           style={{alignSelf: "center", margin: ".5em", cursor: "pointer", flex: 1}}
+                           value={revisedAltLight}
+                           type='color' 
+                           onChange={(e) => setRevisedAltLight(e.target.value)}
+                           />
+                  </div>
+
+                  <div style={{display: "flex", color: props.sysPallette.light, margin: ".1em", alignItems: "center"}}>
+                     <p>Dark:</p> 
+                        <input 
+                           style={{alignSelf: "center", margin: ".5em", cursor: "pointer", flex: 1}}
+                           value={revisedDark}
+                           type='color' 
+                           onChange={(e) => setRevisedDark(e.target.value)}
+                           />
+                  </div>
+
+                  <div style={{ background: "grey", display: "flex", padding: ".35em", marginRight: ".5em", marginBottom: ".2em", height: "2.5em"}}>
+                     <div style={{background: revisedVibr, color: props.sysPallette.vibr, flex: 1}}></div>
+                     <div style={{background: revisedBright, color: props.sysPallette.bright, flex: 1}}></div>
+                     <div style={{background: revisedLight, color: props.sysPallette.light, flex: 1}}></div>
+                     <div style={{background: revisedAltLight, color: props.sysPallette.altLight, flex: 1}}></div>
+                     <div style={{background: revisedDark, color: props.sysPallette.dark, flex: 1}}></div>
+                  </div>
+
+                  <div style={{display: "flex", justifyContent: "space-between", color: props.sysPallette.light}}>
+                     <button style={{alignSelf: "center", width: "50%", marginTop: "1.5em", border: "none", borderRadius: "1em", color: props.sysPallette.light, marginRight: "1em", padding: ".3em"}} type='button' className="closeButton" onClick={() => {setRevisedPallette({
+                        vibr: revisedVibr,
+                        bright: revisedBright,
+                        light: revisedLight,
+                        altLight: revisedAltLight,
+                        dark: revisedDark,
+                        name: revisedPallName
+                     }); setAddNewPalletteField(false); setEditedPallette(null); setEditPalletteField(null);}}>save</button>
+                     <button style={{ alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: "1em", color: 'red', marginRight: "1em", padding: ".3em"}} type='button' className="taskOptions" onClick={() => {setEditPalletteField(false); setAddNewPalletteField(false); setEditedPallette(null)}}>delete</button>
+                  </div>
+               
             </div>
           :
          //  CREATE

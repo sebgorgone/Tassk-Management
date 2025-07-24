@@ -209,6 +209,25 @@ function handleAddPall(newPall) {
   });
 }
 
+function handleUpdatePall(newPall, index) {
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ? prev.data : prev;
+    const existing = Array.isArray(src.pallettes) ? src.pallettes : [];
+
+    const updatedPallettes = existing.map((p, i) => (i === index ? newPall : p));
+
+    const updated = {
+      ...src,
+      pallettes: updatedPallettes
+    };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
 
 
   // task group lists
@@ -335,6 +354,7 @@ useEffect(() => {
               savedPallettes={data.pallettes}
               sysPallette={pallette[1]}
               create={(np) => handleAddPall(np)}
+              update={(up, index) => handleUpdatePall(up, index)}
             />
           </div>
         </>:<>
