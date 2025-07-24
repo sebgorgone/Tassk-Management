@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './assets/index.css'
 import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
+import ColorEditor from './assets/ColorEditor.jsx'
 function Shell() {
   localStorage.clear()
   //state
@@ -14,9 +15,11 @@ function Shell() {
 
   const debug = false;
 
-  const [files, setFiles] = useState(false)
+  const [files, setFiles] = useState(false);
 
-  const [newTGField, setNewTGField] = useState(false)
+  const [newTGField, setNewTGField] = useState(false);
+
+  const [colorEditor, setColorEditor] = useState(false);
 
 
   const header = {
@@ -190,6 +193,22 @@ function handleCloseTG(index) {
   });
 }
 
+function handleAddPall(newPall) {
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ? prev.data : prev;
+
+    const updated = {
+      ...src,
+      pallettes: [newPall, ...(Array.isArray(src.pallettes) ? src.pallettes : [])]
+    };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
 
 
   // task group lists
@@ -263,6 +282,7 @@ useEffect(() => {
         />
       ));
     setTGs(openTGs);
+    setColorEditor(true)
   }
 }, [data]);
 
@@ -273,7 +293,7 @@ useEffect(() => {
       <div className="headerBar" style={header}>
         <img src='./vectorGraphics/ass.svg' className='headerIcon'/>
 
-        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'>pallettes🎨</div>
+        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'><button type='button' className='taskOptions' style={{height: "fit-content",marginTop: "1em", border: "none", borderRadius: "1em", fontFamily: "fontss"}} onClick={() => {setNewTGField(false);setColorEditor(true)}}>pallettes🎨</button></div>
 
         <div style={{display: "flex", flexDirection: "column", alignItems: "top"}}>
           <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>
@@ -283,7 +303,7 @@ useEffect(() => {
           </div>
           <div style={{display: "flex", flexFlow: "row", alignItems: 'right', justifyContent: "right", paddingRight: "1.5em"}} className='headerButtonDiv'>
             <p style={buttonTilteB} className='task'>Task Groups</p>
-            <button style={{aspectRatio: '3 / 4', marginRight: ".25em", width: "2em"}} id='folder-btn' type='button' onClick={() => setFiles(!files)} />
+            <button style={{aspectRatio: '3 / 4', marginRight: ".25em", width: "2em"}} id='folder-btn' type='button' onClick={() => {setNewTGField(false);setColorEditor(false); setFiles(true)}} />
           </div>
         </div>
         
@@ -309,13 +329,23 @@ useEffect(() => {
           </div>
         </div>
         : 
-        <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", zIndex: "0"}}>
-        <div style={{width: files ? "10em" : '0', background: files ? "rgb(0,0,0,.4)" : "0", transition: "600ms ease", display: "flex", flexDirection: "column", overflow: "hidden", height: "calc(100vh - 1.75em)"}} className='files'>
-          <button style={{color: files ? c.altLight : 'rgb(0, 0, 0, 0)', margin: ".15em", width: "50%", alignSelf: "center", marginTop: ".5em", tansition: "200ms", borderRadius: "1em", border: files ? `solid .13em ${c.altLight}` : 'rgb(0, 0, 0, 0)', overflowX: "hidden"}} type='button' onClick={() => {setFiles(!files)}} className='taskGroupOptions'>close</button>
-          {TGList}
-        </div>
+        colorEditor ? <>
+          <div style={{width: '100%', background: "rgb(0,0,0,.4)", transition: "600ms ease", display: "flex", flexDirection: "column", minHeight: "100vh"}} className='files'>
+            <ColorEditor 
+              savedPallettes={data.pallettes}
+              sysPallette={pallette[1]}
+              create={(np) => handleAddPall(np)}
+            />
+          </div>
+        </>:<>
+          <div style={{display: "flex", flexWrap: 'nowrap', fontFamily: "fontss", width: "100vw", overflowX: "auto", zIndex: "0"}}>
+          <div style={{width: files ? "10em" : '0', background: files ? "rgb(0,0,0,.4)" : "0", transition: "600ms ease", display: "flex", flexDirection: "column", overflow: "hidden", height: "calc(100vh - 1.75em)"}} className='files'>
+            <button style={{color: files ? c.altLight : 'rgb(0, 0, 0, 0)', margin: ".15em", width: "50%", alignSelf: "center", marginTop: ".5em", tansition: "200ms", borderRadius: "1em", border: files ? `solid .13em ${c.altLight}` : 'rgb(0, 0, 0, 0)', overflowX: "hidden"}} type='button' onClick={() => {setFiles(!files)}} className='taskGroupOptions'>close</button>
+            {TGList}
+          </div>
         {TGs}
-      </div>}
+      </div>
+      </>}
 
 
      {debug && <p>

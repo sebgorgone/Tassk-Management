@@ -89,7 +89,6 @@
  .taskGroupButton {
   background: transparent;
   transition: 300ms ease;
-  /* clip-path: polygon(0 20%, 100% 20%, 100% 80%, 0% 80%); */
 
  }
 
@@ -189,5 +188,15 @@
 .TGListButton:hover {
   background: rgb(100,100,100, .7)
 }
+
+.colorPalletteList {
+  background: #fff;
+  transition: 200ms ease;
+ }
+
+ .colorPalletteList:hover {
+  background: rgb(100,100,100, .7);
+  cursor: pointer;
+ }
 
 

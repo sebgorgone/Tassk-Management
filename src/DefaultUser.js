@@ -3,11 +3,20 @@ export const data = {
    crtdAt: new Date().toLocaleString(),
    pallettes: [
       {
+         vibr: "#cc2936",
+         dark: "#08415c",
+         light: "#6b818c",
+         altLight: "#f1bf98",
+         bright: "#eee5e9",
+         name: 'default but red'
+      },
+      {
          vibr: "#F06449",
          dark: "#36382E",
          light: "#EDE6E3",
          altLight: "#DADAD9",
-         bright: "#5BC3EB"
+         bright: "#5BC3EB",
+         name: 'default'
       }
    ],
    TGs: 
@@ -95,7 +104,6 @@ export const data = {
    ],
    defaults:
    {
-      savedColors: [],
       openTGs: 
       [
          'New Task Group'
