@@ -4,7 +4,7 @@ import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
 import ColorEditor from './assets/ColorEditor.jsx'
 function Shell() {
-  // localStorage.clear()
+  localStorage.clear()
   //state
   const [data, setData] = useState(null)
   console.log('DATA VALUE: ', data)
@@ -17,9 +17,25 @@ function Shell() {
 
   const [files, setFiles] = useState(false);
 
-  const [newTGField, setNewTGField] = useState(false);
+  const [newTGField, setNewTGField] = useState(true);
 
   const [colorEditor, setColorEditor] = useState(false);
+
+
+  const [newTG, setNewTG] = useState(null);
+
+
+  const [nameTG, setNameTG] = useState(null);
+
+  const [descTG, setDescTG] = useState(null);
+
+  const [pallTG, setPallTG] = useState(null);
+
+  const [favTG, setFavTG] = useState(false);
+
+
+  const [pallTGField, setPallTGField] = useState(false)
+
 
 
   const header = {
@@ -249,7 +265,6 @@ function handleUpdatePall(newPall, index) {
 }
 
 function handleTGPall(newPall, tgIndex) {
-  console.log()
   setData(prev => {
     if (!prev) return prev;
 
@@ -265,6 +280,27 @@ function handleTGPall(newPall, tgIndex) {
     const updated = { ...src, TGs: newTGs };
 
     localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
+function handleAddTG () {
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ?? prev;
+    const existing = Array.isArray(src.TGs) ? src.TGs : [];
+
+    const newTGs = [newTG, ...existing]
+
+    const updated = { ...src, TGs: newTGs };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    setNewTG(null);
+    setNameTG('');
+    setDescTG('');
+    setFavTG(false);
+    setPallTG(null)
     return updated;
   });
 }
@@ -346,6 +382,12 @@ useEffect(() => {
   }
 }, [data]);
 
+
+useEffect(() => {
+  if (newTG === null) return
+  handleAddTG();
+}, [newTG])
+
   return (
     <>
       <div style={{position: 'fixed',top: '0', left: '0', minWidth: "100vw", minHeight: "100vh", zIndex: "-2", background: c.dark}}></div>
@@ -379,6 +421,8 @@ useEffect(() => {
           flexDirection: "column",
           alignItems: "center"
         }}>
+
+
           <div style={{
             display: "flex",
             justifyContent: "center",
@@ -387,6 +431,115 @@ useEffect(() => {
           }}>
             <h1>New Task Group</h1>
           </div>
+
+
+          <div style={{
+            display: "flex",
+            justifyContent: "center",
+            fontFamily: "fontss",
+            color: c.light,
+            width: "100%"
+          }}>
+            <input type='text' style={{textAlign: "center", fontFamily: "fontss", width: "40%", fontWeight: "bold", fontSize: "1.5em"}} placeholder='Task Group Name' value={nameTG} onChange={(e) => setNameTG(e.target.value)}/>
+          </div>
+
+          <div style={{ background: "grey", display: "flex", padding: ".35em", marginRight: ".5em", marginBottom: ".2em", height: "2.5em", width: "80%", marginTop: "1em"}}>
+             <div style={{background: pallTG ? pallTG.vibr : c.vibr, flex: 1}}></div>
+             <div style={{background: pallTG ? pallTG.bright : c.bright, flex: 1}}></div>
+             <div style={{background: pallTG ? pallTG.light : c.light, flex: 1}}></div>
+             <div style={{background: pallTG ? pallTG.altLight : c.altLight, flex: 1}}></div>
+             <div style={{background: pallTG ? pallTG.dark : c.dark, flex: 1}}></div>
+          </div>
+
+          <div style={{
+            margin: "1em",
+            display: "flex",
+            justifyContent: "space-around",
+            fontFamily: "fontss",
+            color: c.light,
+            width: "100%"
+          }}>
+
+            <button type='button' className="colorPalletteList" style={{border: 0,fontFamily: "fontss", alignSelf: "center", margin: ".5em", padding: ".4em", borderRadius: ".5em", display: "flex"}} onClick={() => setPallTGField(!pallTGField)}>
+              pallette
+              <div style={{width: "3em", background: "grey", display: "flex", padding: ".15em", marginLeft: ".5em", marginBottom: ".2em"}}>
+                 <div style={{background: 'red', flex: 1}}></div>
+                 <div style={{background: 'green', flex: 1}}></div>
+                 <div style={{background: 'blue', flex: 1}}></div>
+                 <div style={{background: 'yellow', flex: 1}}></div>
+                 <div style={{background: 'black', flex: 1}}></div>
+              </div>
+            </button>
+
+             <div style={{display: "flex", justifyContent: "center"}}>
+              <p style={{margin: "0", alignSelf: "center"}}>Favorite</p>
+              <div style={{display: "flex", justifyContent: "center", width: "100%", overflow: "hidden", paddingLeft: ".2em", paddingRight: ".2em", alignItems: "center"}}>
+                 <button onClick={e => {e.preventDefault(); setFavTG(!favTG);}} style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "40px", borderRadius: "2em", border: `none`, color: c.dark, alignSelf: "center"}} className='taskOptions'><img src={favTG ? './vectorGraphics/ass.svg' : './vectorGraphics/assStencil.svg'} style={{width: "2.4em", paddingTop: ".5em"}}/></button>
+                 <p style={{fontSize: "1.5em"}}>{!favTG ? '❌' : '✅'}</p>
+              </div>
+             </div>
+
+          </div>
+
+          <div style={{display: "flex", flexWrap: "wrap", marginBottom: "2em"}}>
+          {pallTGField ? data.pallettes.map((p, index) => (
+               <button
+                 key={`${p.name}-${index}`}
+                 type='button'
+                 className="colorPalletteList"
+                 style={{
+                   border: 0,
+                   fontFamily: "fontss",
+                   alignSelf: "center",
+                   margin: ".5em",
+                   padding: ".4em",
+                   borderRadius: ".5em",
+                   display: "flex"
+                 }}
+                 onClick={() => setPallTG(p)}
+               >
+                 {p.name}
+                 <div style={{width: "3em", background: "grey", display: "flex", padding: ".15em", marginLeft: ".5em", marginBottom: ".2em"}}>
+                  <div style={{background: p.vibr, flex: 1}}></div>
+                  <div style={{background: p.bright, flex: 1}}></div>
+                  <div style={{background: p.light, flex: 1}}></div>
+                  <div style={{background: p.altLight, flex: 1}}></div>
+                  <div style={{background: p.dark, flex: 1}}></div>
+               </div>
+               </button>
+            )) : null}
+            </div>
+
+            <div style={{display: "flex", justifyContent: "space-evenly", width: "100%"}}>
+              <textarea 
+              type='text'
+              style={{width: "45%", fontFamily: "fontss"}}
+              placeholder='Task Group Description/Notes'
+              value={descTG}
+              onChange={(e) => setDescTG(e.target.value)}
+              />
+              <button className='taskGroupButton'
+                style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "80px", borderRadius: "1em", border: `solid .2em ${c.light}`, color: c.light, maxHeight: "3em", alignSelf: "center"}}
+                onClick={ e => {
+                   e.preventDefault();
+                   if(nameTG === '' || nameTG === null) return alert('It needs a name goofball')
+                   setNewTG(
+                      {
+                         taskGroupName: nameTG,
+                         pall: pallTG,
+                         iconPath: favTG ? './vectorGraphics/ass.svg' : './vectorGraphics/assStencil.svg',
+                         desc: descTG === null ? null : descTG,
+                         createdAt: new Date().toLocaleString(),
+                         tasks: []
+                      }
+                      
+                   );
+                }}>
+                   create
+              </button>
+            </div>
+
+
         </div>
         : 
         colorEditor ? <>
