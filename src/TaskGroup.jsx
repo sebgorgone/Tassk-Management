@@ -304,6 +304,7 @@ function TaskGroup (props) {
                         placeholder={`${props.desc}`}
                         value={newTGDesc}
                         onChange={e => setNewTGDesc(e.target.value)}
+                        rows={6}
                      />
                   </div>
                   <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", padding: ".2em"}}>

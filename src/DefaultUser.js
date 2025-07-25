@@ -22,10 +22,10 @@ export const data = {
    TGs: 
    [
       {
-         taskGroupName: "New Task Group",
+         taskGroupName: "My Tasks",
          pall: null,
          iconPath: "./vectorGraphics/assStencil.svg",
-         desc: null,
+         desc: 'the things im doing for this task group \n.1 thing \n2.things ',
          createdAt: new Date().toLocaleString(),
          tasks: 
          [
@@ -55,58 +55,13 @@ export const data = {
             },
             
          ]         
-      },
-      {
-         taskGroupName: "New Task Group 2",
-         pall: null,
-         iconPath: "./vectorGraphics/assStencil.svg",
-         desc: 'The Second Task',
-         createdAt: new Date().toLocaleString(),
-         tasks: 
-         [
-            {
-               taskName: "New Task 1 for TG 2",
-               createdAt: new Date().toLocaleString(),
-               task: "DO THIS AGAIN DO THIS AGAIN DO THIS AGAIN DO THIS AGAIN",
-               dueDate: null,
-            },
-            {
-               taskName: "New Task 2 for TG 2",
-               createdAt: new Date(Date.now() + 86400000).toLocaleString(),
-               task: "DO THIS AGAIN 2",
-               dueDate: new Date(Date.now() + 86400000 * 2).toLocaleString(),
-            }
-         ]         
-      },
-      {
-         taskGroupName: "New Task Group 3",
-         pall: null,
-         iconPath: "./vectorGraphics/assStencil.svg",
-         desc: 'The Third Task The Third Task The Third Task The Third Task The Third Task The Third Task',
-         createdAt: new Date().toLocaleString(),
-         tasks: 
-         [
-            {
-               taskName: "New Task 1 for TG 2",
-               createdAt: new Date().toLocaleString(),
-               task: "DO THIS AGAIN",
-               dueDate: null,
-            },
-            {
-               taskName: "New Task 2 for TG 2",
-               createdAt: new Date(Date.now() + 86400000).toLocaleString(),
-               task: "DO THIS AGAIN 2",
-               dueDate: new Date(Date.now() + 86400000 * 2).toLocaleString(),
-            }
-         ]         
-      },
-      
+      },      
    ],
    defaults:
    {
       openTGs: 
       [
-         'New Task Group'
+         'My Tasks'
       ]
    }
 }

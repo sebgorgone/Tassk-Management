@@ -410,7 +410,6 @@ useEffect(() => {
         />
       ));
     setTGs(openTGs);
-    setColorEditor(true)
   }
 }, [data]);
 
@@ -493,7 +492,7 @@ useEffect(() => {
           }}>
 
             <button type='button' className="colorPalletteList" style={{border: 0,fontFamily: "fontss", alignSelf: "center", margin: ".5em", padding: ".4em", borderRadius: ".5em", display: "flex"}} onClick={() => setPallTGField(!pallTGField)}>
-              pallette
+              palette
               <div style={{width: "3em", background: "grey", display: "flex", padding: ".15em", marginLeft: ".5em", marginBottom: ".2em"}}>
                  <div style={{background: 'red', flex: 1}}></div>
                  <div style={{background: 'green', flex: 1}}></div>
