@@ -67,7 +67,7 @@ function ColorEditor (props) {
    }, [revisedPallette])
 
    return (<>
-      <button style={{position: "absolute",right: 0, marginRight: "3em", marginTop: ".5em", borderRadius: "1em", fontFamily: "fontss", fontSize: "2em", color: props.sysPallette.bright, padding: ".25em", border: "solid"}} onClick={() => {setEditedPallette(null);setEditPalletteField(false); setAddNewPalletteField(true)}} className="taskGroupOptions">new palette</button>
+      <button style={{position: "absolute",right: 0, marginRight: "calc(2vw)", marginTop: ".5em", borderRadius: "1em", fontFamily: "fontss", fontSize: "calc(10px + 1vw)", color: props.sysPallette.bright, padding: ".25em", border: "solid"}} onClick={() => {setEditedPallette(null);setEditPalletteField(false); setAddNewPalletteField(true)}} className="taskGroupOptions">new palette</button>
       <div style={{display: "flex", justifyContent: "center", fontFamily: "fontss", color: props.sysPallette.light}}><h1>Color Palettes</h1></div>
 
       <div style={{display: "flex", height: "100%"}}>
