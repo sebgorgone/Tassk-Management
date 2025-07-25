@@ -4,7 +4,6 @@ import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
 import ColorEditor from './assets/ColorEditor.jsx'
 function Shell() {
-  // localStorage.clear()
   //state
   const [data, setData] = useState(null)
   console.log('DATA VALUE: ', data)
