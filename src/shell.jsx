@@ -17,7 +17,7 @@ function Shell() {
 
   const [files, setFiles] = useState(false);
 
-  const [newTGField, setNewTGField] = useState(true);
+  const [newTGField, setNewTGField] = useState(false);
 
   const [colorEditor, setColorEditor] = useState(false);
 
@@ -209,6 +209,36 @@ function handleCloseTG(index) {
   });
 }
 
+function handleDelTG(index) {
+  setData(prev => {
+    if (!prev) return prev;
+
+    // normalize shape
+    const src = prev.data ? prev.data : prev;
+
+    // Remove the TG at the specified index
+    const existingTGs = Array.isArray(src.TGs) ? src.TGs : [];
+    const removedName = existingTGs[index]?.taskGroupName;
+    const newTGs = existingTGs.filter((_, i) => i !== index);
+
+    // Also remove from openTGs if present
+    const existingOpen = Array.isArray(src.defaults?.openTGs) ? src.defaults.openTGs : [];
+    const newOpenTGs = existingOpen.filter(name => name !== removedName);
+
+    const updated = {
+      ...src,
+      TGs: newTGs,
+      defaults: {
+        ...src.defaults,
+        openTGs: newOpenTGs
+      }
+    };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
 function handleAddPall(newPall) {
   setData(prev => {
     if (!prev) return prev;
@@ -376,6 +406,7 @@ useEffect(() => {
           closeTG={() => handleCloseTG(i)}
           pallettes={data.pallettes}
           updatePallette={nP => handleTGPall(nP, i)}
+          delete={() => handleDelTG(i)}
         />
       ));
     setTGs(openTGs);

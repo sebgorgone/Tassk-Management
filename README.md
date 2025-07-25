@@ -1,12 +1,6 @@
-# React + Vite
+This is my over engineered TO_DO application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Im primarily interested in using this myself - the TO-DO app i made previously had a single thread of tasks - this ones supports as many as you can fit inside of your disk storage
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+your data is stored as a single JSON object in memory making it very simple to impliment downloading and uploading of complete user profiles

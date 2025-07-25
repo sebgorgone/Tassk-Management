@@ -306,7 +306,7 @@ function TaskGroup (props) {
                         onChange={e => setNewTGDesc(e.target.value)}
                      />
                   </div>
-                  <div style={{display: "flex", justifyContent: "center", width: "100%", overflow: "hidden", padding: ".2em"}}>
+                  <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", padding: ".2em"}}>
                      <button className='taskGroupButton'
                               style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "80px", borderRadius: "1em", border: `solid .2em ${props.pallette.dark}`, color: props.pallette.dark, maxHeight: "3em", alignSelf: "center"}}
                               onClick={ e => {
@@ -317,6 +317,14 @@ function TaskGroup (props) {
                                  setNewTGDesc('');
                               }}>
                                  update
+                     </button>
+                     <button className='taskGroupButton'
+                              style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "80px", borderRadius: "1em", border: `solid .2em red`, color: 'red', maxHeight: "3em", alignSelf: "center"}}
+                              onClick={ e => {
+                                 e.preventDefault();
+                                 props.delete();
+                              }}>
+                                 delete {props.name}
                      </button>
                   </div>
                </form> : null }
