@@ -562,8 +562,10 @@ useEffect(() => {
                          createdAt: new Date().toLocaleString(),
                          tasks: []
                       }
-                      
+                    
                    );
+                   setNewTGField(false);
+                   setFiles(true);
                 }}>
                    create
               </button>
