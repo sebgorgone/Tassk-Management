@@ -17,6 +17,14 @@ export const data = {
          altLight: "#DADAD9",
          bright: "#5BC3EB",
          name: 'default'
+      },
+      {
+         altLight: "#DADAD9",
+         bright: "#a3e6b8",
+         dark: "#36382E",
+         light: "#ddbdeb",
+         name: "EVEBALLS 1",
+         vibr: "#489986"
       }
    ],
    TGs: 
