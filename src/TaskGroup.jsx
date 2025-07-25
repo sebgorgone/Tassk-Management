@@ -5,7 +5,9 @@ function TaskGroup (props) {
    //state
    const [newTaskField, setNewTaskField] = useState(false);
    const [infoField, setInfoField] = useState(false);
-   const [settingsField, setSettingsField] = useState(false)
+   const [settingsField, setSettingsField] = useState(false);
+
+   const [palletteSettings, setPalletteSettings] = useState(false);
 
    const [newTask, setNewTask] = useState();
 
@@ -16,12 +18,14 @@ function TaskGroup (props) {
    const [newTGName, setNewTGName] = useState('');
    const [newTGDesc, setNewTGDesc] = useState('');
 
+
    //handlers
     function setFalseFields() {
 
        setNewTaskField(false)
        setInfoField(false)
        setSettingsField(false)
+       setPalletteSettings(false)
  
        setTName('');
        setT('');
@@ -238,20 +242,59 @@ function TaskGroup (props) {
                      >close</button>
                   </div>
 
-                  {/* pallette */}
-                  <div style={{display: "flex",}}>
+                  {/* pallette */}<h1 style={{margin: "0", width: "100%", textAlign: "center"}}>Palette</h1> 
+                  <div style={{display: "flex", justifyContent: "center"}}>
 
                      
-
+                     <button type='button' className="colorPalletteList" style={{border: 0,fontFamily: "fontss", alignSelf: "center", margin: ".5em", padding: ".4em", borderRadius: ".5em", display: "flex"}} onClick={() => setPalletteSettings(!palletteSettings)}>
+                        {props.pallette.name ? props.pallette.name : 'Default'}
+                        <div style={{width: "3em", background: "grey", display: "flex", padding: ".15em", marginLeft: ".5em", marginBottom: ".2em"}}>
+                           <div style={{background: props.pallette.vibr, flex: 1}}></div>
+                           <div style={{background: props.pallette.bright, flex: 1}}></div>
+                           <div style={{background: props.pallette.light, flex: 1}}></div>
+                           <div style={{background: props.pallette.altLight, flex: 1}}></div>
+                           <div style={{background: props.pallette.dark, flex: 1}}></div>
+                        </div>
+                     </button>
                   </div>
 
-                  <div style={{display: "flex", width: "100%", overflow: "hidden", paddingLeft: ".2em"}}>
+                  {palletteSettings ? <div style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+                     {props.pallettes.map((p, index) => (
+                        <button
+                          key={`${p.name}-${index}`}
+                          type='button'
+                          className="colorPalletteList"
+                          style={{
+                            border: 0,
+                            fontFamily: "fontss",
+                            alignSelf: "center",
+                            margin: ".5em",
+                            padding: ".4em",
+                            borderRadius: ".5em",
+                            display: "flex"
+                          }}
+                          onClick={() => props.updatePallette(p)}
+                        >
+                          {p.name}
+                          <div style={{width: "3em", background: "grey", display: "flex", padding: ".15em", marginLeft: ".5em", marginBottom: ".2em"}}>
+                           <div style={{background: p.vibr, flex: 1}}></div>
+                           <div style={{background: p.bright, flex: 1}}></div>
+                           <div style={{background: p.light, flex: 1}}></div>
+                           <div style={{background: p.altLight, flex: 1}}></div>
+                           <div style={{background: p.dark, flex: 1}}></div>
+                        </div>
+                        </button>
+                     ))}
+                  </div> : <></>}
+
+                  <div style={{display: "flex", width: "100%", overflow: "hidden", paddingLeft: ".2em", justifyContent: "center"}}>
                      <p style={{margin: "0", alignSelf: "center"}}>Favorited:</p>
                      <div style={{display: "flex", justifyContent: "center", width: "50%", overflow: "hidden", paddingLeft: ".2em", paddingRight: ".2em", alignItems: "center"}}>
                         <button onClick={e => {e.preventDefault(); props.favorited();}} style={{margin: ".5em",padding: ".4em", fontFamily: 'fontss', fontSize: 'calc(10px + .5vw)', minWidth: "40px", borderRadius: "2em", border: `none`, color: props.pallette.dark, alignSelf: "center"}} className='taskOptions'><img src={props.icon} style={{width: "2.4em", paddingTop: ".5em", paddingLeft: ".2em", paddingRight: ".2em"}}/></button>
                         <p style={{fontSize: "1.5em"}}>{props.icon === "./vectorGraphics/assStencil.svg" ? '❌' : '✅'}</p>
                      </div>
                   </div>
+
                   <div style={{display: "flex", justifyContent: "space-around", width: "100%", overflow: "hidden", padding: ".2em"}}>
                      <p style={{margin: "0"}}>description / notes</p>
                   </div>

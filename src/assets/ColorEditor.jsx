@@ -29,8 +29,6 @@ function ColorEditor (props) {
    const [revisedDark, setRevisedDark] = useState(null)
    //effect
 
-   console.log(editedPallette)
-
    useEffect(() => {
       if (newPallette === null) return
       props.create(newPallette);
@@ -69,12 +67,12 @@ function ColorEditor (props) {
    }, [revisedPallette])
 
    return (<>
-      <div style={{display: "flex", justifyContent: "center", fontFamily: "fontss", color: props.sysPallette.light}}><h1>Color Pallettes</h1></div>
+      <div style={{display: "flex", justifyContent: "center", fontFamily: "fontss", color: props.sysPallette.light}}><h1>Color Palettes</h1></div>
 
       <div style={{display: "flex", height: "100%"}}>
          {/* saved palletts list */}
          <div style={{flex: 1, display: "flex", flexDirection: "column"}}>
-            <div style={{display: "flex", justifyContent: "center", color: props.sysPallette.altLight, fontFamily: "fontss"}}><h2>Saved Pallettes</h2></div>
+            <div style={{display: "flex", justifyContent: "center", color: props.sysPallette.altLight, fontFamily: "fontss"}}><h2>Saved Palettes</h2></div>
             
             {props.savedPallettes.map((p, index) => {
             return <div key={index} style={{display: 'flex', alignItems: 'center', color: "white", paddingLeft: ".4em"}}>-
@@ -198,7 +196,7 @@ function ColorEditor (props) {
                <div style={{display: "flex", flexDirection: "column"}}>
 
                   <div style={{display: "flex", justifyContent: "space-between", color: props.sysPallette.light}}>
-                     <h1>Create New Pallette</h1>
+                     <h1>Create New Palette</h1>
                      <button style={{height: "30%", alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: ".6em", color: props.sysPallette.light, marginRight: "1em"}} type='button' className="taskOptions" onClick={() => {setEditPalletteField(false); setAddNewPalletteField(false)}}>cancel</button>
                   </div>
 

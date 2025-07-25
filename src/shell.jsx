@@ -4,7 +4,7 @@ import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
 import ColorEditor from './assets/ColorEditor.jsx'
 function Shell() {
-  localStorage.clear()
+  // localStorage.clear()
   //state
   const [data, setData] = useState(null)
   console.log('DATA VALUE: ', data)
@@ -248,6 +248,27 @@ function handleUpdatePall(newPall, index) {
   });
 }
 
+function handleTGPall(newPall, tgIndex) {
+  console.log()
+  setData(prev => {
+    if (!prev) return prev;
+
+    const src = prev.data ?? prev;
+    const existing = Array.isArray(src.TGs) ? src.TGs : [];
+
+    const newTGs = existing.map((tg, i) =>
+      i === tgIndex
+        ? { ...tg, pall: newPall ?? tg.pall }
+        : tg
+    );
+
+    const updated = { ...src, TGs: newTGs };
+
+    localStorage.setItem('data', JSON.stringify(updated));
+    return updated;
+  });
+}
+
 
 
   // task group lists
@@ -306,7 +327,6 @@ useEffect(() => {
           debug={debug}
           desc={tg.desc}
           name={tg.taskGroupName}
-          tags={tg.tags}
           createdAt={tg.createdAt}
           tasks={tg.tasks}
           key={`${tg.taskGroupName}-${i}`}
@@ -319,6 +339,7 @@ useEffect(() => {
           open={data.TGs.length}
           closeTG={() => handleCloseTG(i)}
           pallettes={data.pallettes}
+          updatePallette={nP => handleTGPall(nP, i)}
         />
       ));
     setTGs(openTGs);
