@@ -410,6 +410,7 @@ useEffect(() => {
         />
       ));
     setTGs(openTGs);
+    setColorEditor(true)
   }
 }, [data]);
 
@@ -424,9 +425,9 @@ useEffect(() => {
       <div style={{position: 'fixed',top: '0', left: '0', minWidth: "100vw", minHeight: "100vh", zIndex: "-2", background: c.dark}}></div>
       <img src='./vectorGraphics/assStencil.svg' style={{position: 'fixed',marginLeft: "10%", marginTop: "10em", width: "80%", zIndex: "-1"}}/>
       <div className="headerBar" style={header}>
-        <img src='./vectorGraphics/ass.svg' className='headerIcon'/>
+        <button className='headerIcon' style={{background: 0, border: 0}} onClick={e => {e.preventDefault(); setColorEditor(false); setNewTGField(false); setFiles(true)}}><img src='./vectorGraphics/ass.svg'/></button>
 
-        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'><button type='button' className='taskOptions' style={{height: "fit-content",marginTop: "1em", border: "none", borderRadius: "1em", fontFamily: "fontss"}} onClick={() => {setNewTGField(false);setColorEditor(true)}}>pallettes🎨</button></div>
+        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'><button type='button' className='taskOptions' style={{height: "fit-content",marginTop: "1em", border: "none", borderRadius: "1em", fontFamily: "fontss", fontSize: "1.5em", padding: ".3em"}} onClick={() => {setNewTGField(false);setColorEditor(true)}}>pallettes🎨</button></div>
 
         <div style={{display: "flex", flexDirection: "column", alignItems: "top"}}>
           <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>

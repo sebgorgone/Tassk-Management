@@ -67,6 +67,7 @@ function ColorEditor (props) {
    }, [revisedPallette])
 
    return (<>
+      <button style={{position: "absolute",right: 0, marginRight: "3em", marginTop: ".5em", borderRadius: "1em", fontFamily: "fontss", fontSize: "2em", color: props.sysPallette.bright, padding: ".25em", border: "solid"}} onClick={() => {setEditedPallette(null);setEditPalletteField(false); setAddNewPalletteField(true)}} className="taskGroupOptions">new palette</button>
       <div style={{display: "flex", justifyContent: "center", fontFamily: "fontss", color: props.sysPallette.light}}><h1>Color Palettes</h1></div>
 
       <div style={{display: "flex", height: "100%"}}>
@@ -288,12 +289,12 @@ function ColorEditor (props) {
                         name: newPallName
                      })
                   }}
-                  >Create Pallette</button>
+                  >Create Palette</button>
 
                </div>
             : 
          // Landning
-         <div style={{display: "flex"}}><p style={{color: props.sysPallette.altLight}}>Select a pallette to edit <br /> or create a new one here →</p> <button style={{height: "30%", alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: ".6em", color: props.sysPallette.light, marginLeft: "1em"}} type='button' className="taskOptions" onClick={() => {setEditedPallette(null);setEditPalletteField(false); setAddNewPalletteField(true)}}>new pallette</button></div>}
+         <div style={{display: "flex"}}><p style={{color: props.sysPallette.altLight}}>Select a palette to edit <br /> or create a new one here →</p> <button style={{height: "30%", alignSelf: "center", marginTop: "1.5em", border: "none", borderRadius: ".6em", color: props.sysPallette.light, marginLeft: "1em", fontFamily: "fontss", fontSize: "1em"}} type='button' className="taskOptions" onClick={() => {setEditedPallette(null);setEditPalletteField(false); setAddNewPalletteField(true)}}>new palette</button></div>}
          </div>}
 
       </div>
