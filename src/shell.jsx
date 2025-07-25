@@ -5,6 +5,7 @@ import TaskGroup from './TaskGroup.jsx'
 import ColorEditor from './assets/ColorEditor.jsx'
 function Shell() {
   //state
+  localStorage.clear()
   const [data, setData] = useState(null)
   console.log('DATA VALUE: ', data)
 

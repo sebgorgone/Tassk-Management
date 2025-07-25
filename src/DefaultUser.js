@@ -19,12 +19,20 @@ export const data = {
          name: 'default'
       },
       {
-         altLight: "#DADAD9",
+         altLight: "#e0e3f4",
          bright: "#a3e6b8",
-         dark: "#36382E",
+         dark: "#244a47",
          light: "#ddbdeb",
          name: "EVEBALLS 1",
-         vibr: "#489986"
+         vibr: "#489986",
+      },
+      {
+         altLight: "#DADAD9",
+         birght: "#df4a26",
+         dark: "#341342",
+         light: "#8bc4e3",
+         name: "SEBBALLS",
+         vibr: "#9380e1"
       }
    ],
    TGs: 
