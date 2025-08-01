@@ -28,7 +28,7 @@ export const data = {
       },
       {
          altLight: "#DADAD9",
-         birght: "#df4a26",
+         birght: "#ff6464",
          dark: "#341342",
          light: "#8bc4e3",
          name: "SEBBALLS",

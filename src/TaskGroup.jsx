@@ -1,4 +1,4 @@
-import Task from "./assets/task"
+import Task from "./assets/Task.jsx"
 import { useState, useEffect } from "react";
 
 function TaskGroup (props) {
