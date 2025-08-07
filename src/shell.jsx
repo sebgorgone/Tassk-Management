@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import './assets/index.css'
+import '../public/index.css'
 import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
 import ColorEditor from './assets/ColorEditor.jsx'

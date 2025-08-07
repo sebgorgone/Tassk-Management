@@ -1,7 +1,13 @@
 import Task from "./assets/Task.jsx"
 import { useState, useEffect } from "react";
+import useViewport from "./assets/useViewport.js";
 
 function TaskGroup (props) {
+   //media
+
+   const viewport = useViewport();
+
+   console.log(viewport);
    //state
    const [newTaskField, setNewTaskField] = useState(false);
    const [infoField, setInfoField] = useState(false);
