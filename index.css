@@ -1,0 +1,202 @@
+@font-face {
+   font-family: 'fontHW';
+   src: url(../Architectsdaughter.ttf);
+}
+
+@font-face {
+   font-family: 'fontss';
+   src: url(../OSP-DIN.ttf);
+}
+
+ .headerBar {
+   display: flex;
+   justify-content: space-between;
+   overflow-x: hidden;
+   width: 100%;
+   height: 1.75em;
+   transition: 400ms;
+   overflow-y:hidden;
+   box-shadow:
+   0 4px 4px rgba(0, 0, 0, 0.25),
+   0 8px 8px rgba(0, 0, 0, 0.20),
+   0 12px 12px rgba(0, 0, 0, 0.15),
+   0 16px 16px rgba(0, 0, 0, 0.10);
+ }
+
+.headerBar:hover {
+   height: 7.5em;
+ }
+
+ .headerTitle {
+  font-size: 1.3em;
+  transition: 550ms;
+  padding-right: 1em;
+  align-self: top;
+  margin: 0;
+ }
+
+ .headerBar:hover .headerTitle{
+  font-size: 2.5em;
+  padding-right: .25em;
+
+ }
+
+ .headerIcon {
+  aspect-ratio: 1.5 / 1;
+  padding-left: 0;
+  width: 5em;
+  margin: 0;
+  transition: margin 400ms ease, width 400ms ease;
+ }
+
+ .headerBar:hover .headerIcon {
+  width: 10em;
+  margin: 0;
+ }
+
+ .headerButton {
+  transition: font-size 300ms ease, opacity 300ms ease, transform 300ms ease;
+  font-size: 1em;
+  opacity: 0;
+  transform: scale(0.5);
+  pointer-events: none;
+  visibility: hidden;
+ }
+
+ .headerBar:hover .headerButton {
+  display: block;
+  font-size: 2em;
+  width: 1.7em;
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+  visibility: visible;
+ }
+
+ .headerButtonDiv {
+   width: 0;
+   opacity: 0;
+   overflow: hidden;
+   transition: all 800ms ease;
+ }
+
+ .headerBar:hover .headerButtonDiv {
+   width: auto;
+   opacity: 1;
+   margin-left: 1em;
+ }
+
+ .taskGroupButton {
+  background: transparent;
+  transition: 300ms ease;
+
+ }
+
+ .taskGroupButton:hover {
+  background: rgba(150,150,150,.3);
+  cursor: pointer;
+ }
+
+ .taskGroupOptions {
+  background: transparent;
+  transition: 400ms ease;
+ }
+
+ .taskGroupOptions:hover {
+  background: #ffffff;
+  cursor: pointer;
+ }
+
+ .taskGroupHeader {
+  clip-path: polygon(0 0, 90% 0%, 100% 50%, 90% 100%, 0% 100%);
+ }
+
+ .taskGroupIcon {
+  clip-path: (0 0, 0 90%, 100% 90%, 100% 0);
+ }
+
+ .taskOptions {
+  background: rgba(150,150,150,.3);
+  transition: 400ms ease;
+ }
+
+ .taskOptions:hover {
+  background: rgba(200,200,200,.5);
+  cursor: pointer;
+ }
+
+ .closeButton {
+  box-shadow: .15em .15em rgb(0,0,0, .3);
+  background: #000;
+  transition: 350ms ease;
+ }
+
+ .closeButton:hover {
+  box-shadow: 0 0 rgb(0, 0, 0, 1);
+  cursor: pointer;
+ }
+
+ #folder-btn {
+  cursor: pointer;
+  --r: 8%;        /* corner radius */
+  --tab-w: 30%;   /* width of the tab */
+  --tab-h: 18%;   /* height of the tab */
+  border: none;
+  width: 240px;
+  transition: 200ms ease;
+  display: inline-block;
+  background: #f7c24b;
+  clip-path: polygon(
+    0% 18%, 8% 10%, 30% 10%, 30% 18%, 92% 18%, 100% 26%, 100% 92%, 92% 100%, 8% 100%, 0% 92%
+  );
+  -webkit-clip-path: polygon(
+    0% 18%, 8% 10%, 30% 10%, 30% 18%, 92% 18%, 100% 26%, 100% 92%, 92% 100%, 8% 100%, 0% 92%
+  );
+}
+
+@supports (clip-path: path("M0 0L1 1Z")) {
+  #folder-btn {
+    clip-path: path("M0 18% A8 8 0 0 1 8% 10% H22% A8 8 0 0 1 30% 18% H92% A8 8 0 0 1 100% 26% V92% A8 8 0 0 1 92% 100% H8% A8 8 0 0 1 0 92% Z");
+  }
+}
+
+#folder-btn:hover {
+  background: #a98634;
+}
+
+.TGButton {
+  cursor: pointer;
+  border-radius: 1em;
+  border: none;
+  background: rgb(0,0,0,.25);
+  transition: 150ms;
+}
+
+.TGButton:hover {
+  background: transparent;
+  
+  border: .1em solid;
+
+}
+
+.TGListButton {
+  cursor: pointer;
+  transition: 100 ease;
+  background: transparent;
+}
+
+.TGListButton:hover {
+  background: rgb(100,100,100, .7)
+}
+
+.colorPalletteList {
+  background: #fff;
+  transition: 200ms ease;
+ }
+
+ .colorPalletteList:hover {
+  background: rgb(100,100,100, .7);
+  cursor: pointer;
+ }
+
+
