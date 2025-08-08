@@ -10,7 +10,7 @@ function TaskGroup (props) {
    const dScale = (viewport > 1000);
 
 
-   console.log(viewport);
+   // console.log(viewport);
    //state
    const [newTaskField, setNewTaskField] = useState(false);
    const [infoField, setInfoField] = useState(false);
@@ -117,10 +117,10 @@ function TaskGroup (props) {
                  columnGap: "0.5em",
                  width: "100%"
                }}>
-                  <header className='taskGroupHeader' style={
+                  <header style={
                      dScale ? 
-                     {background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginRight: ".3em",paddingRight: "1em",paddingLeft: ".3em", width: "fit-content", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"} :
-                     {background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginLeft: ".3em",paddingLeft: ".3em", width: "50%", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"} 
+                     {background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1.5vw + 15px)", marginLeft: ".3em",paddingLeft: ".3em",paddingRight: ".3em", width: "fit-content", borderTopRightRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"} :
+                     {background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginLeft: ".3em",paddingLeft: ".3em", width: "50%", borderTopRightRadius: ".5em", borderBottomLeftRadius: ".5em"} 
                }>{props.name}</header>
                   <button type='button' style={{border: "none", transition: "200ms", borderRadius: "1em", marginRight: '.5em'}} className="TGListButton" onClick={() => props.closeTG()}>ⓧ</button>
                   
@@ -159,7 +159,7 @@ function TaskGroup (props) {
                      placeholder='Task Name'
                      value={tName}
                      onChange={e => {
-                        setTName(e.target.value);
+                     setTName(e.target.value);
                      }}
                   />
                   <button className='taskGroupButton'

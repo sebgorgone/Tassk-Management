@@ -8,7 +8,8 @@ import useViewport from "./assets/useViewport.js";
 function Shell() {
   const viewport = useViewport();
   const dScale = (viewport > 1000);
-  console.log(dScale)
+  console.log(dScale);
+
   //state
   const [data, setData] = useState(null)
   // console.log('DATA VALUE: ', data)
