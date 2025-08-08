@@ -3,10 +3,15 @@ import '../public/index.css'
 import { pallette } from './assets/DefaultPallettes'
 import TaskGroup from './TaskGroup.jsx'
 import ColorEditor from './assets/ColorEditor.jsx'
+import useViewport from "./assets/useViewport.js";
+
 function Shell() {
+  const viewport = useViewport();
+  const dScale = (viewport > 1000);
+  console.log(dScale)
   //state
   const [data, setData] = useState(null)
-  console.log('DATA VALUE: ', data)
+  // console.log('DATA VALUE: ', data)
 
   //style
 
@@ -169,7 +174,7 @@ function handleOpenTG(index) {
     const name = src.TGs[index].taskGroupName;
     const open = src.defaults?.openTGs ?? [];
 
-    if (open.includes(name) || open.length >= 5) return prev;
+    if (open.includes(name) || open.length >= (dScale ? 4 : 2)) return prev;
 
     const updated = {
       ...src,
@@ -416,7 +421,33 @@ useEffect(() => {
 useEffect(() => {
   if (newTG === null) return
   handleAddTG();
-}, [newTG])
+}, [newTG]);
+
+useEffect(() => {
+      if (!dScale && TGs.length > 2) {
+        setData(prev => {
+          if (!prev) return prev;
+
+          const src = prev.data ? prev.data : prev;
+
+
+
+          const newOpen = [src.defaults.openTGs[0], src.defaults.openTGs[1]];
+
+          const updated = {
+            ...src,
+            defaults: {
+              ...src.defaults,
+              openTGs: newOpen
+            }
+          };
+        
+          localStorage.setItem('data', JSON.stringify(updated));
+          return updated;
+        });
+        // setTGs([TGs[0], TGs[1]]);
+      }
+   },[dScale]);
 
   return (
     <>
