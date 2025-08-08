@@ -109,9 +109,6 @@ function TaskGroup (props) {
             {props.debug && <p>--TG NAME: {props.name}--description: {`${props.desc}`}--icon path: {props.icon} -- tags: {props.tags}--color: {props.pallette.vibr} --Created At: {props.createdAt}-- Tasks:⬇️⬇️⬇️<br /> {props.tasks.map(t => '---------------------------------------------------------------------------------------------------------------------TASK_NAME: \n' + t.taskName + ' ___CREATED_AT: ' + t.createdAt + '___TASK: ' + t.task + '___DUE_DATE: ' + t.dueDate)}</p>}
 
             <div style={{display: "flex", justifyContent: "left", width: "100%", overflow: "hidden", alignItems: "left", marginTop: ".1em", flexWrap: "nowrap", flexDirection: "column"}}>
-               {/* <div style={{minWidth: "3.5em", height: "3.83em"}}> 
-                  <img className='taskGroupIcon' src={props.icon} style={props.icon === "./vectorGraphics/assStencil.svg" ? {width: "4em", paddingTop: ".5em"} : {width: "6.7em",height: "6.7em", maxWidth: "none", margin: "0", position: "absolute", top: -16, left: -30}} />
-               </div> */}
 
                <div style={{
                  display: "flex",
@@ -120,8 +117,12 @@ function TaskGroup (props) {
                  columnGap: "0.5em",
                  width: "100%"
                }}>
-                  <header className='taskGroupHeader' style={{background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginRight: ".3em",paddingRight: "1em",paddingLeft: ".3em", width: "fit-content", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"}}>{props.name}</header>
-                  <button type='button' style={{position: 'relative',border: "none", transition: "200ms", borderRadius: "1em", zIndex: "5"}} className="TGListButton" onClick={() => props.closeTG()}>ⓧ</button>
+                  <header className='taskGroupHeader' style={
+                     dScale ? 
+                     {background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginRight: ".3em",paddingRight: "1em",paddingLeft: ".3em", width: "fit-content", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"} :
+                     {background: props.pallette.bright, color: props.pallette.light, fontSize: "calc(1vw + 10px)", marginLeft: ".3em",paddingLeft: ".3em", width: "50%", borderTopLeftRadius: ".5em", borderBottomLeftRadius: ".5em", flexShrink: "0"} 
+               }>{props.name}</header>
+                  <button type='button' style={{border: "none", transition: "200ms", borderRadius: "1em", marginRight: '.5em'}} className="TGListButton" onClick={() => props.closeTG()}>ⓧ</button>
                   
                </div>
                <div>
@@ -143,6 +144,9 @@ function TaskGroup (props) {
                      ><img src='./vectorGraphics/info-circle-fill-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}}/>
                      </button>
                      <button style={{border: "none", borderRadius: "1.5em", paddingTop: ".3em", paddingRight: ".25em"}} className='taskGroupOptions' onClick={e => {e.preventDefault(); setFalseFields(); setSettingsField(!settingsField)}} ><img src='./vectorGraphics/settings-2-svgrepo-com.svg' style={{ width: "calc(1.4em + 1vw)", aspectRatio: "1 / 1"}} /></button>
+                     <div style={{minWidth: "3.5em", height: "3.83em", flex: "1"}}> 
+                        <img className='taskGroupIcon' src={props.icon} style={(props.icon === "./vectorGraphics/assStencil.svg" ? {width: "45px", paddingTop: "1em", paddingLeft: "50%"} : {width: "75px",height: "75px", maxWidth: "none", paddingTop: "0", paddingLeft: "35%"})} />
+                     </div>
 
                   </div>
                </div>           

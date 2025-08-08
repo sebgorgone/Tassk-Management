@@ -456,7 +456,7 @@ useEffect(() => {
       <div className="headerBar" style={header}>
         <button className='headerIcon' style={{background: 0, border: 0}} onClick={e => {e.preventDefault(); setColorEditor(false); setNewTGField(false); setFiles(true)}}><img src='./vectorGraphics/ass.svg'/></button>
 
-        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'><button type='button' className='taskOptions' style={{height: "fit-content",marginTop: "1em", border: "none", borderRadius: "1em", fontFamily: "fontss", fontSize: "1.5em", padding: ".3em"}} onClick={() => {setNewTGField(false);setColorEditor(true)}}>pallettes🎨</button></div>
+        <div style={{display: "flex", transition: "2s", fontFamily: "fontss"}} className='headerButtonDiv'><button type='button' className='taskOptions' style={{height: "fit-content", border: "none", borderRadius: "1em", fontFamily: "fontss", fontSize: "1.5em", padding: ".3em", alignSelf: "center"}} onClick={() => {setNewTGField(false);setColorEditor(true)}}>pallettes🎨</button></div>
 
         <div style={{display: "flex", flexDirection: "column", alignItems: "top"}}>
           <p style={body} className='headerTitle'>T<span style={assB}>a</span><span style={assO}>ss</span>k Management</p>
